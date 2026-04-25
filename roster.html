@@ -9,42 +9,59 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  .hero{position:relative;overflow:hidden;background:var(--warm-wash);padding:60px 40px 56px;border-bottom:1px solid var(--border);}
-  .hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='.028'/%3E%3C/svg%3E");opacity:.5;}
-  .hero::after{content:'R';position:absolute;right:-1%;top:-15%;font-family:'Playfair Display',serif;font-size:clamp(260px,32vw,420px);font-weight:700;font-style:italic;color:var(--orange);opacity:.04;line-height:1;pointer-events:none;z-index:0;user-select:none;}
-  .hero-inner{position:relative;z-index:1;max-width:900px;}
-  .eyebrow{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:10px;animation:fadeUp .6s ease both;}
-  .eyebrow::before{content:'';flex:none;width:24px;height:1px;background:var(--orange);opacity:.5;}
-  .pg-title{font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em;color:var(--ink);animation:fadeUp .6s .07s ease both;}
-  .pg-title em{font-style:italic;color:var(--orange);}
-  .pg-sub{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--ink-mid);margin-top:14px;animation:fadeUp .6s .14s ease both;}
+  /* ── Hero ── */
+  .hero { position:relative;overflow:hidden;background:var(--warm-wash);padding:48px 40px 44px;border-bottom:1px solid var(--border); }
+  .hero::before { content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='.028'/%3E%3C/svg%3E");opacity:.5; }
+  .hero::after { content:'R';position:absolute;right:-1%;top:-15%;font-family:'Playfair Display',serif;font-size:clamp(200px,28vw,360px);font-weight:700;font-style:italic;color:var(--orange);opacity:.04;line-height:1;pointer-events:none;z-index:0;user-select:none; }
+  .hero-inner { position:relative;z-index:1;max-width:900px; }
+  .eyebrow { font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:10px;animation:fadeUp .6s ease both; }
+  .eyebrow::before { content:'';flex:none;width:24px;height:1px;background:var(--orange);opacity:.5; }
+  .pg-title { font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,58px);font-weight:400;line-height:1.05;letter-spacing:-.02em;color:var(--ink);animation:fadeUp .6s .07s ease both; }
+  .pg-title em { font-style:italic;color:var(--orange); }
+  .pg-sub { font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--ink-mid);margin-top:14px;line-height:1.6;animation:fadeUp .6s .14s ease both; }
 
-  .wrap{max-width:980px;margin:0 auto;padding:52px 40px 80px;}
+  /* ── Layout ── */
+  .wrap { max-width:1400px;margin:0 auto;padding:44px 40px 80px; }
 
-  .filter-bar{display:flex;gap:7px;margin-bottom:28px;flex-wrap:wrap;animation:fadeUp .6s .08s ease both;}
-  .fb{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:5px 15px;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink-mid);cursor:pointer;transition:all .15s ease;}
-  .fb:hover{color:var(--orange);border-color:var(--orange);}
-  .fb.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+  /* ── Filter bar ── */
+  .filter-bar { display:flex;gap:7px;margin-bottom:28px;flex-wrap:wrap;animation:fadeUp .6s .08s ease both; }
+  .fb { background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:6px 16px;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink-mid);cursor:pointer;transition:all .15s ease; }
+  .fb:hover { color:var(--orange);border-color:var(--orange); }
+  .fb.active { background:var(--orange);border-color:var(--orange);color:#fff; }
 
-  table{width:100%;border-collapse:collapse;animation:fadeUp .6s .12s ease both;}
-  thead tr{border-bottom:2px solid var(--orange);}
-  th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);padding:0 12px 14px;}
-  th:first-child{padding-left:0;}
-  tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
-  tbody tr:hover{background:var(--orange-lite);}
-  tbody tr.hidden{display:none;}
-  td{padding:14px 12px;vertical-align:middle;}
-  td:first-child{padding-left:0;}
+  /* ── Table ── */
+  table { width:100%;border-collapse:collapse;animation:fadeUp .6s .12s ease both; }
+  thead tr { border-bottom:2px solid var(--orange); }
+  th { text-align:left;font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);padding:0 16px 16px; }
+  th:first-child { padding-left:0; }
+  tbody tr { border-bottom:1px solid var(--border);transition:background .12s; }
+  tbody tr:hover { background:var(--orange-lite); }
+  tbody tr.hidden { display:none; }
+  td { padding:16px 16px;vertical-align:middle; }
+  td:first-child { padding-left:0; }
 
-  .td-agent{display:flex;align-items:center;gap:10px;}
-  .td-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;border:1px solid var(--border);}
-  .td-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--ink);}
-  .td-role{font-size:10px;color:var(--ink-light);letter-spacing:.04em;margin-top:1px;}
-  .td-dept{font-size:13px;color:var(--ink-mid);}
-  .td-reports{font-size:13px;color:var(--ink-mid);font-style:italic;}
-  .td-project{font-size:12px;color:var(--ink-light);font-family:'Cormorant Garamond',serif;font-style:italic;}
-  .senior-pill{display:inline-block;background:var(--ink);color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-top:3px;}
-  .cos-pill{display:inline-block;background:var(--orange);color:#fff;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-top:3px;}
+  /* ── Cell styles ── */
+  .td-agent { display:flex;align-items:center;gap:12px; }
+  .td-icon { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:1px solid var(--border); }
+  .td-name { font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.25; }
+  .td-role { font-size:10px;color:var(--ink-mid);letter-spacing:.04em;margin-top:2px;font-weight:500; }
+  .td-dept { font-size:14px;color:var(--ink);font-weight:500; }
+  .td-reports { font-size:14px;color:var(--ink-mid); }
+  .td-project { font-size:13px;color:var(--ink-mid);font-family:'DM Sans',sans-serif; }
+
+  /* ── Tier pills ── */
+  .chief-pill { display:inline-block;background:var(--ink);color:rgba(255,255,255,.85);font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:10px;margin-top:4px; }
+  .cos-pill { display:inline-block;background:var(--orange);color:#fff;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:10px;margin-top:4px; }
+
+  /* ── Founder row special styling ── */
+  .founder-row-tr { background:var(--warm-wash); }
+  .founder-row-tr:hover { background:var(--orange-lite); }
+  .founder-pill { display:inline-block;background:var(--orange);color:#fff;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:10px;margin-top:4px; }
+
+  /* ── Divider rows ── */
+  .section-divider td { padding:8px 0 4px;border-bottom:none; }
+  .section-divider .divider-label { font-size:9px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-light);display:flex;align-items:center;gap:12px; }
+  .section-divider .divider-label::after { content:'';flex:1;height:1px;background:var(--border); }
 </style>
 </head>
 <body>
@@ -55,8 +72,11 @@
     <a class="nav-link" href="ecosystem.html">Ecosystem</a>
     <a class="nav-link" href="third-shift.html">Third Shift</a>
     <div class="nav-dropdown">
-      <button class="nav-link active dropdown-toggle">Archive ▾</button>
-      <div class="dropdown-menu" id="navDropdown"><a href="roster.html" style="color:var(--orange);">Full Roster</a><a href="data-flow.html">Data Flow</a></div>
+      <button class="nav-link active dropdown-toggle" onclick="toggleNav(event)">Archive ▾</button>
+      <div class="dropdown-menu" id="navDropdown">
+        <a href="roster.html" style="color:var(--orange);">Full Roster</a>
+        <a href="data-flow.html">Data Flow</a>
+      </div>
     </div>
   </div>
   <div class="nav-live"><span class="live-dot"></span>Live</div>
@@ -65,26 +85,26 @@
 <div class="hero">
   <div class="hero-inner">
     <div class="eyebrow">Archive · Full Roster</div>
-    <h1 class="pg-title">All <em>27 Collaborators</em></h1>
-    <p class="pg-sub">Every AI collaborator, their department, activation mode, and reporting line.</p>
+    <h1 class="pg-title">All <em>31 Members</em></h1>
+    <p class="pg-sub">Every member of the HoH team — their department, activation mode, and reporting line.</p>
   </div>
 </div>
 
 <div class="page"><div class="wrap">
   <div class="filter-bar">
-    <button class="fb active" onclick="filter('all',this)">All (27)</button>
+    <button class="fb active" onclick="filter('all',this)">All (31)</button>
     <button class="fb" onclick="filter('demand',this)">On Demand</button>
     <button class="fb" onclick="filter('scheduled',this)">Scheduled</button>
     <button class="fb" onclick="filter('trigger',this)">Trigger</button>
-    <button class="fb" onclick="filter('senior',this)">Senior Agents</button>
+    <button class="fb" onclick="filter('senior',this)">Department Chiefs</button>
   </div>
   <table>
     <thead><tr>
-      <th style="width:30%">Collaborator</th>
+      <th style="width:28%">Name</th>
       <th style="width:18%">Department</th>
       <th style="width:20%">Reports To</th>
-      <th style="width:14%">Activation</th>
-      <th style="width:18%">Claude Project</th>
+      <th style="width:13%">Activation</th>
+      <th style="width:21%">Claude Project</th>
     </tr></thead>
     <tbody id="tbody"></tbody>
   </table>
@@ -92,65 +112,139 @@
 
 <footer>
   <span class="footer-brand">Hooked on Hue</span>
-  <span class="footer-tagline">27 AI Collaborators · Live In Full Color</span>
+  <span class="footer-tagline">26 AI Collaborators · Live In Full Color</span>
 </footer>
 
 <script src="data.js"></script>
 <script>
-function sb(s,l){return '<div class="status status-'+s+'" style="margin-top:0;"><span class="status-dot"></span>'+l+'</div>';}
+function sb(s,l){
+  return '<div class="status status-'+s+'" style="margin-top:0;"><span class="status-dot"></span>'+l+'</div>';
+}
 
-function addRow(body,d){
-  const row=document.createElement('tr');
-  row.dataset.status=d.status||'demand';
-  row.dataset.type=d.type||'specialist';
-  let badge='';
-  if(d.type==='cos') badge='<div class="cos-pill">Chief of Staff</div>';
-  else if(d.type==='senior') badge='<div class="senior-pill">Senior Agent</div>';
-  else badge='<div class="td-role">'+d.role+'</div>';
-  row.innerHTML='<td><div class="td-agent"><div class="td-icon" style="background:'+d.iconBg+'">'+d.icon+'</div><div><div class="td-name">'+d.name+'</div>'+badge+'</div></div></td><td class="td-dept">'+d.dept+'</td><td class="td-reports">'+d.reports+'</td><td>'+sb(d.status,d.statusLabel)+'</td><td class="td-project">'+d.project+'</td>';
+function sectionDivider(body, label) {
+  const tr = document.createElement('tr');
+  tr.className = 'section-divider';
+  tr.dataset.type = 'divider';
+  tr.innerHTML = '<td colspan="5"><div class="divider-label">'+label+'</div></td>';
+  body.appendChild(tr);
+}
+
+function addRow(body, d) {
+  const row = document.createElement('tr');
+  if (d.type === 'founder') row.className = 'founder-row-tr';
+  row.dataset.status = d.status || 'demand';
+  row.dataset.type = d.type || 'collaborator';
+
+  let badge = '';
+  if (d.type === 'founder') badge = '<div class="founder-pill">Founder</div>';
+  else if (d.type === 'cos') badge = '<div class="cos-pill">Chief of Staff</div>';
+  else if (d.type === 'senior') badge = '<div class="chief-pill">Department Chief</div>';
+  else badge = '<div class="td-role">'+d.role+'</div>';
+
+  row.innerHTML =
+    '<td><div class="td-agent">' +
+      '<div class="td-icon" style="background:'+d.iconBg+'">'+d.icon+'</div>' +
+      '<div><div class="td-name">'+d.name+'</div>'+badge+'</div>' +
+    '</div></td>' +
+    '<td class="td-dept">'+d.dept+'</td>' +
+    '<td class="td-reports">'+d.reports+'</td>' +
+    '<td>'+sb(d.status, d.statusLabel)+'</td>' +
+    '<td class="td-project">'+d.project+'</td>';
   body.appendChild(row);
 }
 
-function render(){
-  const body=document.getElementById('tbody');
-  if(!body||typeof HOH==='undefined') return;
-  // CoS
-  if(HOH.cos){
-    var c=HOH.cos;
-    addRow(body,{icon:c.icon,iconBg:c.iconBg||'#fdf6ee',name:c.name,role:'Founder\'s Right Hand',dept:'Executive',reports:'Dorian Davis',status:c.status,statusLabel:c.statusLabel,project:'—',type:'cos'});
+function render() {
+  const body = document.getElementById('tbody');
+  if (!body || typeof HOH === 'undefined') return;
+
+  // ── Founder ──
+  sectionDivider(body, 'Founder');
+  addRow(body, {
+    icon: '✦', iconBg: '#fdf6ee',
+    name: 'Dorian Davis',
+    role: 'Founder & Creative Director',
+    dept: 'Executive',
+    reports: '—',
+    status: 'demand', statusLabel: 'On Demand',
+    project: '—',
+    type: 'founder'
+  });
+
+  // ── Chief of Staff ──
+  sectionDivider(body, 'Chief of Staff');
+  if (HOH.cos) {
+    var c = HOH.cos;
+    addRow(body, {
+      icon: c.icon, iconBg: c.iconBg || '#fdf6ee',
+      name: c.name,
+      role: 'Founder\'s Operating System',
+      dept: 'Executive',
+      reports: 'Dorian Davis',
+      status: c.status, statusLabel: c.statusLabel,
+      project: c.project || 'HoH | Chief of Staff',
+      type: 'cos'
+    });
   }
-  // Chiefs
-  for(var ci=0;ci<HOH.chiefs.length;ci++){
-    var ch=HOH.chiefs[ci];
-    addRow(body,{icon:ch.icon,iconBg:'#f5f5f5',name:ch.name,role:'Senior Agent',dept:HOH.departments[ci].name,reports:'Dorian Davis',status:ch.status,statusLabel:ch.statusLabel,project:'—',type:'senior'});
+
+  // ── Department Chiefs ──
+  sectionDivider(body, 'Department Chiefs');
+  for (var ci = 0; ci < HOH.chiefs.length; ci++) {
+    var ch = HOH.chiefs[ci];
+    addRow(body, {
+      icon: ch.icon, iconBg: '#f5f5f5',
+      name: ch.name,
+      role: ch.dept,
+      dept: HOH.departments[ci].name,
+      reports: 'Dorian Davis',
+      status: ch.status, statusLabel: ch.statusLabel,
+      project: ch.project || '—',
+      type: 'senior'
+    });
   }
-  // Agents
-  for(var di=0;di<HOH.departments.length;di++){
-    var dept=HOH.departments[di];
-    var chief=HOH.chiefs[di];
-    for(var ai=0;ai<dept.agents.length;ai++){
-      var a=dept.agents[ai];
-      addRow(body,{icon:a.icon,iconBg:a.iconBg,name:a.name,role:a.role,dept:dept.name,reports:chief.name,status:a.status,statusLabel:a.statusLabel,project:a.project,type:'specialist'});
+
+  // ── AI Collaborators by department ──
+  for (var di = 0; di < HOH.departments.length; di++) {
+    var dept = HOH.departments[di];
+    var chief = HOH.chiefs[di];
+    sectionDivider(body, dept.name + ' — AI Collaborators');
+    for (var ai = 0; ai < dept.agents.length; ai++) {
+      var a = dept.agents[ai];
+      addRow(body, {
+        icon: a.icon, iconBg: a.iconBg,
+        name: a.name,
+        role: a.role,
+        dept: dept.name,
+        reports: chief.name,
+        status: a.status, statusLabel: a.statusLabel,
+        project: a.project,
+        type: 'collaborator'
+      });
     }
   }
 }
 
-function filter(type,btn){
-  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('active');});
+function filter(type, btn) {
+  document.querySelectorAll('.fb').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  document.querySelectorAll('#tbody tr').forEach(function(row){
-    if(type==='all'){row.classList.remove('hidden');return;}
-    if(type==='senior'){row.classList.toggle('hidden',row.dataset.type!=='senior'&&row.dataset.type!=='cos');return;}
-    row.classList.toggle('hidden',row.dataset.status!==type);
+  document.querySelectorAll('#tbody tr').forEach(function(row) {
+    if (row.dataset.type === 'divider') {
+      row.classList.toggle('hidden', type !== 'all');
+      return;
+    }
+    if (type === 'all') { row.classList.remove('hidden'); return; }
+    if (type === 'senior') {
+      row.classList.toggle('hidden', row.dataset.type !== 'senior' && row.dataset.type !== 'cos');
+      return;
+    }
+    row.classList.toggle('hidden', row.dataset.status !== type);
   });
 }
 
-function toggleNav(e){e.stopPropagation();document.getElementById('navDropdown').classList.toggle('open');}
-document.addEventListener('click',function(){var d=document.getElementById('navDropdown');if(d)d.classList.remove('open');});
+function toggleNav(e){ e.stopPropagation(); document.getElementById('navDropdown').classList.toggle('open'); }
+document.addEventListener('click', function(){ var d=document.getElementById('navDropdown'); if(d) d.classList.remove('open'); });
 
-// Run on load
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',render);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', render);
 } else {
   render();
 }

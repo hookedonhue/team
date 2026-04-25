@@ -9,50 +9,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  .hero { position:relative;overflow:hidden;background:var(--warm-wash);padding:60px 40px 56px;border-bottom:1px solid var(--border); }
+  /* ── Hero ── */
+  .hero { position:relative;overflow:hidden;background:var(--warm-wash);padding:48px 40px 44px;border-bottom:1px solid var(--border); }
   .hero::before { content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='.028'/%3E%3C/svg%3E");opacity:.5; }
-  .hero::after { content:'E';position:absolute;right:-1%;top:-15%;font-family:'Playfair Display',serif;font-size:clamp(260px,32vw,420px);font-weight:700;font-style:italic;color:var(--orange);opacity:.04;line-height:1;pointer-events:none;z-index:0;user-select:none; }
+  .hero::after { content:'E';position:absolute;right:-1%;top:-15%;font-family:'Playfair Display',serif;font-size:clamp(200px,28vw,360px);font-weight:700;font-style:italic;color:var(--orange);opacity:.04;line-height:1;pointer-events:none;z-index:0;user-select:none; }
   .hero-inner { position:relative;z-index:1;max-width:900px;margin:0 auto; }
   .eyebrow { font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:10px;animation:fadeUp .6s ease both; }
   .eyebrow::before,.eyebrow::after { content:'';flex:none;width:24px;height:1px;background:var(--orange);opacity:.5; }
-  .pg-title { font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em;color:var(--ink);animation:fadeUp .6s .07s ease both; }
+  .pg-title { font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,58px);font-weight:400;line-height:1.05;letter-spacing:-.02em;color:var(--ink);animation:fadeUp .6s .07s ease both; }
   .pg-title em { font-style:italic;color:var(--orange); }
-  .pg-sub { font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--ink-mid);margin-top:16px;animation:fadeUp .6s .14s ease both; }
+  .pg-sub { font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--ink-mid);margin-top:16px;line-height:1.65;animation:fadeUp .6s .14s ease both; }
 
-  .wrap { max-width:1100px;margin:0 auto;padding:52px 40px 80px; }
+  /* ── Layout ── */
+  .wrap { max-width:1400px;margin:0 auto;padding:48px 40px 80px; }
 
-  .cos-strip { display:flex;align-items:center;gap:16px;background:var(--white);border:1.5px solid var(--border);border-left:4px solid var(--orange);border-radius:var(--r);padding:16px 22px;margin-bottom:40px;animation:fadeUp .6s .08s ease both;max-width:520px;box-shadow:var(--shadow-xs); }
-  .cos-strip-icon { font-size:22px; }
-  .cos-strip-name { font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px; }
-  .cos-strip-sub { font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:4px; }
-  .cos-strip-desc { font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--ink-mid);line-height:1.5; }
+  /* ── CoS strip ── */
+  .cos-strip {
+    display:flex;align-items:flex-start;gap:18px;
+    background:var(--white);border:1.5px solid var(--border);
+    border-left:4px solid var(--orange);border-radius:var(--r);
+    padding:20px 26px;margin-bottom:44px;
+    animation:fadeUp .6s .08s ease both;
+    max-width:600px;box-shadow:var(--shadow-xs);
+  }
+  .cos-strip-icon { font-size:26px;flex-shrink:0;padding-top:2px; }
+  .cos-strip-name { font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:3px; }
+  .cos-strip-sub { font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:8px; }
+  .cos-strip-desc { font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);line-height:1.65;font-weight:400; }
+  .cos-strip-project { font-size:12px;font-style:italic;color:var(--ink-light);margin-top:8px; }
 
-  .dept-block { margin-bottom:40px;animation:fadeUp .6s ease both; }
+  /* ── Department blocks ── */
+  .dept-block { margin-bottom:44px;animation:fadeUp .6s ease both; }
   .dept-block:nth-child(1){animation-delay:.1s;}
   .dept-block:nth-child(2){animation-delay:.17s;}
   .dept-block:nth-child(3){animation-delay:.24s;}
   .dept-block:nth-child(4){animation-delay:.31s;}
 
-  .chief-hdr { display:flex;align-items:center;gap:14px;padding:18px 22px;margin-bottom:12px;background:var(--white);border:1.5px solid var(--border);border-top:3px solid var(--orange);border-radius:var(--r);box-shadow:var(--shadow-xs); }
-  .ch-icon { font-size:14px;color:var(--orange);font-weight:700;flex-shrink:0; }
+  /* ── Chief header ── */
+  .chief-hdr {
+    display:flex;align-items:flex-start;gap:16px;
+    padding:20px 24px;margin-bottom:14px;
+    background:var(--white);border:1.5px solid var(--border);
+    border-top:3px solid var(--orange);border-radius:var(--r);
+    box-shadow:var(--shadow-xs);
+  }
+  .ch-icon { font-size:15px;color:var(--orange);font-weight:700;flex-shrink:0;padding-top:3px; }
   .ch-info { flex:1; }
-  .ch-name { font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:2px; }
-  .ch-dept { font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:6px; }
-  .ch-desc { font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--ink-mid);line-height:1.55; }
+  .ch-name { font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:3px; }
+  .ch-dept { font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:8px; }
+  .ch-desc { font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);line-height:1.65;font-weight:400; }
+  .ch-project { font-size:11.5px;font-style:italic;color:var(--ink-light);margin-top:8px; }
+  .ch-meta { display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0; }
   .ch-count { font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);white-space:nowrap; }
 
-  .eco-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-left:18px;border-left:2px solid var(--orange-mid); }
+  /* ── Eco grid ── */
+  .eco-grid {
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+    padding-left:20px;border-left:2px solid var(--orange-mid);
+  }
+  @media(max-width:1100px){.eco-grid{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:700px){.eco-grid{grid-template-columns:repeat(2,1fr);padding-left:0;border-left:none;}}
   @media(max-width:460px){.eco-grid{grid-template-columns:1fr;}}
 
-  .eco-card { background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px;transition:all .15s ease; }
+  /* ── Eco card ── */
+  .eco-card {
+    background:var(--white);border:1px solid var(--border);
+    border-radius:var(--r);padding:16px;
+    transition:all .15s ease;position:relative;overflow:hidden;
+  }
+  .eco-card::after {
+    content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+    background:var(--orange);transform:scaleX(0);transform-origin:left;
+    transition:transform .2s ease;
+  }
   .eco-card:hover { border-color:var(--orange);box-shadow:var(--shadow-xs); }
-  .eco-top { display:flex;align-items:center;gap:9px;margin-bottom:6px; }
-  .eco-icon { width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;border:1px solid var(--border); }
-  .eco-name { font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3; }
-  .eco-role { font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:6px; }
-  .eco-desc { font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.6;color:var(--ink-mid); }
-  .eco-reports { font-size:10px;color:var(--ink-light);margin-top:7px; }
+  .eco-card:hover::after { transform:scaleX(1); }
+
+  .eco-top { display:flex;align-items:center;gap:10px;margin-bottom:8px; }
+  .eco-icon { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:1px solid var(--border); }
+  .eco-name { font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.25; }
+  .eco-role { font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:8px; }
+  .eco-desc { font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.65;color:var(--ink);font-weight:400; }
+  .eco-reports { font-size:11px;color:var(--ink-light);margin-top:8px;font-weight:500; }
 </style>
 </head>
 <body>
@@ -64,7 +102,10 @@
     <a class="nav-link" href="third-shift.html">Third Shift</a>
     <div class="nav-dropdown">
       <button class="nav-link dropdown-toggle" onclick="toggleNav(event)">Archive ▾</button>
-      <div class="dropdown-menu" id="navDropdown"><a href="roster.html">Full Roster</a><a href="data-flow.html">Data Flow</a></div>
+      <div class="dropdown-menu" id="navDropdown">
+        <a href="roster.html">Full Roster</a>
+        <a href="data-flow.html">Data Flow</a>
+      </div>
     </div>
   </div>
   <div class="nav-live"><span class="live-dot"></span>Live</div>
@@ -79,56 +120,78 @@
 </div>
 
 <div class="page"><div class="wrap">
+
+  <!-- CoS strip — positioned between Dorian and the departments -->
   <div class="cos-strip">
     <div class="cos-strip-icon">🗝️</div>
     <div>
       <div class="cos-strip-name">Chief of Staff</div>
-      <div class="cos-strip-sub">Founder's Operating System · Adjacent to Dorian</div>
-      <div class="cos-strip-desc">Manages Dorian directly — not the brand. Weekly planning, context switching, decision queue, personal communications across all active projects.</div>
+      <div class="cos-strip-sub">Founder's Operating System · Reports to Dorian</div>
+      <div class="cos-strip-desc">Manages Dorian — not the brand. Sits between the founder and the four Chiefs. Weekly planning, decision queue, context switching, and personal communications across all active projects.</div>
+      <div class="cos-strip-project">Claude Project: HoH | Chief of Staff</div>
     </div>
   </div>
+
   <div id="ecoGrid"></div>
+
 </div></div>
 
 <footer>
   <span class="footer-brand">Hooked on Hue</span>
-  <span class="footer-tagline">27 AI Collaborators · Live In Full Color</span>
+  <span class="footer-tagline">26 AI Collaborators · Live In Full Color</span>
 </footer>
 
 <script src="data.js"></script>
 <script>
-const grid=document.getElementById('ecoGrid');
-HOH.departments.forEach((dept,di)=>{
-  const chief=HOH.chiefs[di];
-  const block=document.createElement('div');block.className='dept-block';
-  block.innerHTML=`
+const grid = document.getElementById('ecoGrid');
+
+HOH.departments.forEach((dept, di) => {
+  const chief = HOH.chiefs[di];
+  const block = document.createElement('div');
+  block.className = 'dept-block';
+
+  block.innerHTML = `
     <div class="chief-hdr">
       <div class="ch-icon">${chief.icon}</div>
       <div class="ch-info">
         <div class="ch-name">${chief.name}</div>
         <div class="ch-dept">${dept.name}</div>
         <div class="ch-desc">${chief.desc}</div>
+        <div class="ch-project">Claude Project: ${chief.project}</div>
       </div>
-      <div class="ch-count">${dept.agents.length} AI reports</div>
+      <div class="ch-meta">
+        <div class="ch-count">${dept.agents.length} AI Collaborators</div>
+        <div class="status status-${chief.status}" style="margin-top:4px;">
+          <span class="status-dot"></span>${chief.statusLabel}
+        </div>
+      </div>
     </div>
     <div class="eco-grid" id="eco-${di}"></div>
   `;
+
   grid.appendChild(block);
-  dept.agents.forEach(a=>{
-    const card=document.createElement('div');card.className='eco-card';
-    card.innerHTML=`
-      <div class="eco-top"><div class="eco-icon" style="background:${a.iconBg}">${a.icon}</div><div class="eco-name">${a.name}</div></div>
+
+  dept.agents.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'eco-card';
+    card.innerHTML = `
+      <div class="eco-top">
+        <div class="eco-icon" style="background:${a.iconBg}">${a.icon}</div>
+        <div class="eco-name">${a.name}</div>
+      </div>
       <div class="eco-role">${a.role}</div>
       <div class="eco-desc">${a.desc}</div>
       <div class="eco-reports">→ ${chief.name}</div>
-      <div class="status status-${a.status}" style="margin-top:8px;"><span class="status-dot"></span>${a.statusLabel}</div>
+      <div class="status status-${a.status}" style="margin-top:9px;">
+        <span class="status-dot"></span>${a.statusLabel}
+      </div>
     `;
     block.querySelector(`#eco-${di}`).appendChild(card);
   });
 });
 
-function toggleNav(e){e.stopPropagation();document.getElementById('navDropdown').classList.toggle('open');}
-document.addEventListener('click',function(){var d=document.getElementById('navDropdown');if(d)d.classList.remove('open');});
+function toggleNav(e){ e.stopPropagation(); document.getElementById('navDropdown').classList.toggle('open'); }
+document.addEventListener('click', function(){ var d=document.getElementById('navDropdown'); if(d) d.classList.remove('open'); });
 </script>
 </body>
 </html>
