@@ -68,7 +68,7 @@
     <a class="nav-link" href="third-shift.html">Third Shift</a>
     <div class="nav-dropdown">
       <button class="nav-link active dropdown-toggle">Archive ▾</button>
-      <div class="dropdown-menu"><a href="roster.html">Full Roster</a><a href="data-flow.html" style="color:var(--orange);">Data Flow</a></div>
+      <div class="dropdown-menu" id="navDropdown"><a href="roster.html">Full Roster</a><a href="data-flow.html" style="color:var(--orange);">Data Flow</a></div>
     </div>
   </div>
   <div class="nav-live"><span class="live-dot"></span>Live</div>
@@ -151,6 +151,9 @@ function rst(id){
   document.getElementById(`btn-${id}`).textContent='▶ Play';document.getElementById(`btn-${id}`).classList.remove('replay');
 }
 render();
+
+function toggleNav(e){e.stopPropagation();document.getElementById('navDropdown').classList.toggle('open');}
+document.addEventListener('click',function(){var d=document.getElementById('navDropdown');if(d)d.classList.remove('open');});
 </script>
 </body>
 </html>

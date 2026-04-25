@@ -347,8 +347,8 @@
     <a class="nav-link" href="ecosystem.html">Ecosystem</a>
     <a class="nav-link" href="third-shift.html">Third Shift</a>
     <div class="nav-dropdown">
-      <button class="nav-link dropdown-toggle">Archive ▾</button>
-      <div class="dropdown-menu">
+      <button class="nav-link dropdown-toggle" onclick="toggleNav(event)">Archive ▾</button>
+      <div class="dropdown-menu" id="navDropdown">
         <a href="roster.html">Full Roster</a>
         <a href="data-flow.html">Data Flow</a>
       </div>
@@ -423,7 +423,7 @@
       <div class="cos-card" id="cosCard" onclick="toggleCoS()">
         <div class="cos-tag">Chief of Staff</div>
         <div class="cos-icon">🗝️</div>
-        <div class="cos-name">The Founder's Right Hand</div>
+        <div class="cos-name">Founder's Right Hand</div>
         <div class="cos-desc">Manages Dorian — not the brand. Weekly rhythm, decision queue, context switching, personal communications.</div>
         <div class="status status-scheduled"><span class="status-dot"></span>Scheduled</div>
       </div>
@@ -647,6 +647,9 @@ function clearAgent(ci) {
 }
 
 renderChiefs();
+
+function toggleNav(e){e.stopPropagation();document.getElementById('navDropdown').classList.toggle('open');}
+document.addEventListener('click',()=>{const d=document.getElementById('navDropdown');if(d)d.classList.remove('open');});
 </script>
 </body>
 </html>
