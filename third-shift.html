@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoH Studio — Third Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  body { background: #0D0D0B; color: #E8E4DC; }
+  body::before { opacity: .15; }
+
+  /* Override nav for dark */
+  nav { background: rgba(13,13,11,.92); border-bottom-color: rgba(197,151,62,.12); }
+  .nav-brand { color: #E8E4DC; }
+  .nav-link { color: rgba(232,228,220,.5); }
+  .nav-link:hover { color: #E8E4DC; background: rgba(197,151,62,.1); }
+  .nav-link.active { color: #E8E4DC; background: rgba(197,151,62,.12); }
+  .dropdown-menu { background: #1A1A18; border-color: rgba(197,151,62,.2); }
+  .dropdown-menu a { color: #E8E4DC; }
+  .dropdown-menu a:hover { background: rgba(197,151,62,.1); }
+
+  /* Stars */
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .star { position: absolute; border-radius: 50%; background: rgba(232,228,220,.6); animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: var(--o); } 50% { opacity: .1; } }
+
+  /* Page */
+  .shift-wrap { position: relative; z-index: 1; padding: 0; min-height: calc(100vh - 50px); display: flex; flex-direction: column; }
+
+  /* Header bar */
+  .shift-header { display: flex; align-items: center; padding: 20px 32px; border-bottom: 1px solid rgba(197,151,62,.1); flex-wrap: wrap; gap: 20px; }
+
+  .clock-display { font-family: 'DM Sans', sans-serif; font-size: 42px; font-weight: 300; color: #E8E4DC; letter-spacing: -.02em; }
+  .clock-am { font-size: 16px; font-weight: 300; color: rgba(232,228,220,.4); margin-left: 6px; vertical-align: super; }
+
+  .shift-tagline { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(232,228,220,.45); max-width: 220px; line-height: 1.5; }
+
+  .shift-stats { display: flex; gap: 28px; margin-left: auto; }
+  .stat-item { text-align: center; }
+  .stat-val { font-size: 22px; font-weight: 300; color: var(--gold); font-family: 'DM Sans', sans-serif; }
+  .stat-label { font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(232,228,220,.35); margin-top: 2px; }
+
+  .dorian-status { display: flex; align-items: center; gap: 10px; background: rgba(197,151,62,.08); border: 1px solid rgba(197,151,62,.15); border-radius: 24px; padding: 8px 16px; }
+  .dorian-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 600; color: var(--ink); }
+  .dorian-info { font-size: 12px; color: rgba(232,228,220,.7); }
+  .dorian-info strong { display: block; color: #E8E4DC; font-size: 13px; font-weight: 500; }
+
+  /* Timeline scrubber */
+  .timeline-bar { padding: 14px 32px; border-bottom: 1px solid rgba(197,151,62,.08); display: flex; align-items: center; gap: 0; position: relative; overflow-x: auto; }
+  .timeline-track { flex: 1; height: 2px; background: rgba(197,151,62,.12); border-radius: 1px; position: relative; min-width: 400px; }
+  .timeline-progress { height: 100%; background: linear-gradient(to right, var(--gold), rgba(197,151,62,.3)); border-radius: 1px; transition: width .1s linear; }
+  .timeline-labels { display: flex; justify-content: space-between; position: absolute; top: 10px; left: 0; right: 0; }
+  .tl-label { font-size: 9px; color: rgba(232,228,220,.25); letter-spacing: .06em; }
+  .timeline-wrap { flex: 1; min-width: 400px; position: relative; }
+
+  /* Controls */
+  .controls { display: flex; align-items: center; gap: 8px; padding: 14px 32px; border-bottom: 1px solid rgba(197,151,62,.08); flex-wrap: wrap; }
+  .ctrl-btn { background: rgba(197,151,62,.1); border: 1px solid rgba(197,151,62,.2); border-radius: 4px; color: rgba(232,228,220,.8); font-size: 11px; font-weight: 500; padding: 6px 16px; cursor: pointer; transition: all .18s ease; letter-spacing: .06em; }
+  .ctrl-btn:hover { background: rgba(197,151,62,.2); color: #E8E4DC; }
+  .ctrl-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .ctrl-speed { font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,228,220,.3); margin-left: 8px; }
+
+  /* Feed */
+  .shift-feed { flex: 1; padding: 24px 32px 40px; max-width: 760px; width: 100%; margin: 0 auto; }
+
+  .shift-intro { text-align: center; padding: 60px 20px; }
+  .shift-moon { font-size: 48px; margin-bottom: 20px; animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .shift-intro-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: rgba(232,228,220,.7); margin-bottom: 8px; }
+  .shift-intro-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(232,228,220,.35); }
+
+  /* Task card */
+  .task-card { background: rgba(232,228,220,.04); border: 1px solid rgba(197,151,62,.12); border-radius: var(--r); padding: 20px 24px; margin-bottom: 14px; animation: slideIn .4s ease both; display: none; }
+  .task-card.visible { display: block; }
+  @keyframes slideIn { from { opacity:0; transform:translateX(-12px); } to { opacity:1; transform:translateX(0); } }
+
+  .task-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .task-time { font-size: 11px; color: rgba(232,228,220,.3); font-weight: 300; white-space: nowrap; padding-top: 2px; min-width: 52px; }
+  .task-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(197,151,62,.1); border: 1px solid rgba(197,151,62,.2); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .task-agent { font-size: 13px; font-weight: 500; color: #E8E4DC; margin-bottom: 3px; }
+  .task-dept-badge { font-size: 8.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; background: rgba(197,151,62,.1); color: var(--gold); border: 1px solid rgba(197,151,62,.18); }
+  .task-action { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(232,228,220,.5); margin-top: 4px; }
+
+  .task-output { background: rgba(42,61,50,.2); border-left: 2px solid var(--forest); padding: 10px 14px; border-radius: 0 var(--r) var(--r) 0; margin: 10px 0 10px 52px; }
+  .task-output-label { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(42,200,100,.6); margin-bottom: 4px; }
+  .task-output-text { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(232,228,220,.7); line-height: 1.5; }
+
+  .task-meta { display: flex; gap: 16px; margin-left: 52px; margin-top: 4px; }
+  .task-meta-item { font-size: 10px; color: rgba(232,228,220,.3); }
+  .task-meta-item span { color: var(--gold); font-weight: 500; }
+
+  /* Total bar */
+  .total-bar { background: rgba(197,151,62,.06); border: 1px solid rgba(197,151,62,.12); border-radius: var(--r); padding: 16px 20px; margin-bottom: 20px; display: none; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .total-bar.visible { display: flex; }
+  .total-item { text-align: center; }
+  .total-val { font-size: 24px; font-weight: 300; color: var(--gold); font-family: 'DM Sans', sans-serif; }
+  .total-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,228,220,.35); margin-top: 2px; }
+  .total-divider { width: 1px; height: 36px; background: rgba(197,151,62,.15); }
+  .total-message { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(232,228,220,.5); flex: 1; }
+
+  footer { background: rgba(13,13,11,.8); border-top-color: rgba(197,151,62,.1); }
+  footer .footer-brand, footer .footer-tagline { color: rgba(232,228,220,.3); }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">Hooked on Hue</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Org Map</a>
+    <a class="nav-link" href="ecosystem.html">Ecosystem</a>
+    <a class="nav-link active" href="third-shift.html">Third Shift</a>
+    <div class="nav-dropdown">
+      <button class="nav-link dropdown-toggle">Archive ▾</button>
+      <div class="dropdown-menu">
+        <a href="ecosystem.html">By Department</a>
+        <a href="data-flow.html">Data Flow</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-live"><span class="live-dot"></span>Live</div>
+</nav>
+
+<div class="page">
+<div class="shift-wrap">
+
+  <!-- Header -->
+  <div class="shift-header">
+    <div>
+      <div class="clock-display" id="clock">12<span style="opacity:.4">:</span>00<span class="clock-am">AM</span></div>
+      <div class="shift-tagline">The third shift begins. AI collaborators are clocking in.</div>
+    </div>
+    <div class="shift-stats">
+      <div class="stat-item"><div class="stat-val" id="stat-tasks">0</div><div class="stat-label">Tasks</div></div>
+      <div class="stat-item"><div class="stat-val" id="stat-saved">0.0h</div><div class="stat-label">Saved</div></div>
+      <div class="stat-item"><div class="stat-val" id="stat-value">$0</div><div class="stat-label">Value</div></div>
+    </div>
+    <div class="dorian-status">
+      <div class="dorian-avatar">DD</div>
+      <div class="dorian-info">
+        <strong>Dorian — Sleeping 😴</strong>
+        AI collaborators are handling it
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline-bar">
+    <div class="timeline-wrap">
+      <div class="timeline-track">
+        <div class="timeline-progress" id="timelineProgress" style="width:0%"></div>
+      </div>
+      <div class="timeline-labels">
+        <span class="tl-label">12:00 AM</span>
+        <span class="tl-label">2:00 AM</span>
+        <span class="tl-label">4:00 AM</span>
+        <span class="tl-label">6:00 AM</span>
+        <span class="tl-label">8:00 AM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">▶ Play</button>
+    <button class="ctrl-btn active" id="speed1" onclick="setSpeed(1, this)">1×</button>
+    <button class="ctrl-btn" id="speed2" onclick="setSpeed(3, this)">3×</button>
+    <button class="ctrl-btn" id="speed4" onclick="setSpeed(6, this)">6×</button>
+    <button class="ctrl-btn" onclick="resetShift()">↩ Reset</button>
+    <span class="ctrl-speed">Scrub timeline to navigate</span>
+  </div>
+
+  <!-- Feed -->
+  <div class="shift-feed">
+    <div class="total-bar" id="totalBar">
+      <div class="total-item"><div class="total-val" id="total-tasks">0</div><div class="total-label">Tasks Complete</div></div>
+      <div class="total-divider"></div>
+      <div class="total-item"><div class="total-val" id="total-saved">0h</div><div class="total-label">Hours Saved</div></div>
+      <div class="total-divider"></div>
+      <div class="total-item"><div class="total-val" id="total-value">$0</div><div class="total-label">Value Created</div></div>
+      <div class="total-message">While Dorian slept, the studio kept working.</div>
+    </div>
+
+    <div id="feed">
+      <div class="shift-intro" id="shiftIntro">
+        <div class="shift-moon">🌙</div>
+        <div class="shift-intro-title">The third shift is about to begin.</div>
+        <div class="shift-intro-sub">Your team sleeps. The AI collaborators don't.<br>Press Play or scrub the timeline to watch the night unfold.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <span class="footer-brand">Hooked on Hue</span>
+  <span class="footer-tagline">Third Shift · The Studio Never Stops</span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+/* ── Stars ─────────────────────────── */
+(function(){
+  const c = document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2+.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.8+.2};--d:${Math.random()*4+2}s;animation-delay:${Math.random()*4}s;`;
+    c.appendChild(s);
+  }
+})();
+
+/* ── Timeline engine ───────────────── */
+const TOTAL_MINUTES = 9 * 60; // midnight to 9am
+let currentMinute = 0;
+let playing = false;
+let speed = 1;
+let timer = null;
+let shownCards = new Set();
+
+const ICONS = { 'Intelligence Analyst':'🔭', 'SEO Auditor':'🔍', 'Revenue Tracker':'📊', 'Reader Experience Manager':'💬', 'Content Multiplier':'⚡', 'Executive Assistant':'🗝️' };
+
+function minuteToTime(min) {
+  const h = Math.floor(min / 60) % 12 || 12;
+  const m = String(min % 60).padStart(2, '0');
+  return `${h}:${m} AM`;
+}
+
+function parseTime(str) {
+  const [hm, _] = str.split(' ');
+  const [h, m] = hm.split(':').map(Number);
+  return (h % 12) * 60 + m;
+}
+
+function updateClock() {
+  document.getElementById('clock').innerHTML = minuteToTime(currentMinute).replace(' AM','') + '<span class="clock-am">AM</span>';
+  document.getElementById('timelineProgress').style.width = (currentMinute / TOTAL_MINUTES * 100) + '%';
+}
+
+function updateStats() {
+  const visible = HOH.thirdShift.filter((_,i) => shownCards.has(i));
+  const tasks = visible.length;
+  const saved = visible.reduce((a,t) => a + parseFloat(t.saved), 0);
+  const value = visible.reduce((a,t) => a + parseInt(t.value.replace('$','')), 0);
+  document.getElementById('stat-tasks').textContent = tasks;
+  document.getElementById('stat-saved').textContent = saved.toFixed(1) + 'h';
+  document.getElementById('stat-value').textContent = '$' + value;
+  if (tasks === HOH.thirdShift.length) {
+    document.getElementById('totalBar').classList.add('visible');
+    document.getElementById('total-tasks').textContent = tasks;
+    document.getElementById('total-saved').textContent = saved.toFixed(1) + 'h';
+    document.getElementById('total-value').textContent = '$' + value;
+  }
+}
+
+function checkCards() {
+  HOH.thirdShift.forEach((task, i) => {
+    const taskMin = parseTime(task.time);
+    if (currentMinute >= taskMin && !shownCards.has(i)) {
+      shownCards.add(i);
+      showCard(task, i);
+    }
+  });
+  updateStats();
+}
+
+function showCard(task, idx) {
+  const intro = document.getElementById('shiftIntro');
+  if (intro) intro.style.display = 'none';
+
+  const feed = document.getElementById('feed');
+  const card = document.createElement('div');
+  card.className = 'task-card visible';
+  card.id = `task-${idx}`;
+  card.innerHTML = `
+    <div class="task-top">
+      <div class="task-time">${task.time}</div>
+      <div class="task-icon">${ICONS[task.agent] || '🤖'}</div>
+      <div>
+        <div class="task-agent">${task.agent}</div>
+        <span class="task-dept-badge">${task.dept}</span>
+        <div class="task-action">${task.task}</div>
+      </div>
+    </div>
+    <div class="task-output">
+      <div class="task-output-label">Output</div>
+      <div class="task-output-text">${task.output}</div>
+    </div>
+    <div class="task-meta">
+      <div class="task-meta-item">⏱ <span>${task.saved}</span> saved</div>
+      <div class="task-meta-item">💰 <span>${task.value}</span> value</div>
+    </div>
+  `;
+  // insert in time order
+  const existing = feed.querySelectorAll('.task-card');
+  let inserted = false;
+  for (const ex of existing) {
+    if (parseInt(ex.id.split('-')[1]) > idx) {
+      feed.insertBefore(card, ex);
+      inserted = true; break;
+    }
+  }
+  if (!inserted) feed.appendChild(card);
+}
+
+function tick() {
+  if (currentMinute >= TOTAL_MINUTES) { pause(); return; }
+  currentMinute = Math.min(currentMinute + speed, TOTAL_MINUTES);
+  updateClock();
+  checkCards();
+}
+
+function togglePlay() {
+  playing ? pause() : play();
+}
+
+function play() {
+  playing = true;
+  document.getElementById('playBtn').textContent = '⏸ Pause';
+  timer = setInterval(tick, 100);
+}
+
+function pause() {
+  playing = false;
+  document.getElementById('playBtn').textContent = '▶ Play';
+  clearInterval(timer);
+}
+
+function setSpeed(s, btn) {
+  speed = s;
+  document.querySelectorAll('.ctrl-btn').forEach(b => {
+    if (['speed1','speed2','speed4'].includes(b.id)) b.classList.remove('active');
+  });
+  btn.classList.add('active');
+}
+
+function resetShift() {
+  pause();
+  currentMinute = 0;
+  shownCards.clear();
+  updateClock();
+  document.getElementById('stat-tasks').textContent = '0';
+  document.getElementById('stat-saved').textContent = '0.0h';
+  document.getElementById('stat-value').textContent = '$0';
+  document.getElementById('totalBar').classList.remove('visible');
+  const feed = document.getElementById('feed');
+  feed.querySelectorAll('.task-card').forEach(c => c.remove());
+  const intro = document.getElementById('shiftIntro');
+  if (intro) intro.style.display = '';
+}
+
+updateClock();
+</script>
+</body>
+</html>

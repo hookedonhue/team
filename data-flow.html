@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoH Studio — Data Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .flow-wrap { max-width: 860px; margin: 0 auto; padding: 52px 24px 80px; }
+
+  .flow-masthead { text-align: center; margin-bottom: 52px; animation: fadeUp .7s ease both; }
+  .flow-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .flow-title { font-family: 'Playfair Display', serif; font-size: clamp(28px,4.5vw,46px); font-weight: 400; line-height: 1.15; }
+  .flow-title em { font-style: italic; color: var(--gold); }
+  .flow-sub { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--mid); margin-top: 10px; }
+
+  /* Flow block */
+  .flow-block { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 28px 32px; margin-bottom: 20px; animation: fadeUp .6s ease both; }
+  .flow-block:nth-child(1) { animation-delay: .2s; }
+  .flow-block:nth-child(2) { animation-delay: .28s; }
+  .flow-block:nth-child(3) { animation-delay: .36s; }
+
+  .flow-block-header { margin-bottom: 20px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .flow-block-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .flow-block-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--mid); }
+
+  .flow-play-btn { background: var(--ink); color: var(--cream); border: none; border-radius: 20px; padding: 7px 18px; font-size: 11px; font-weight: 500; letter-spacing: .08em; cursor: pointer; transition: all .2s ease; white-space: nowrap; }
+  .flow-play-btn:hover { background: var(--gold); color: var(--ink); }
+  .flow-play-btn.playing { background: rgba(197,151,62,.15); color: var(--gold); border: 1px solid rgba(197,151,62,.3); }
+
+  /* Steps */
+  .flow-steps { position: relative; }
+
+  .flow-step { display: flex; gap: 16px; padding: 14px 0; opacity: .28; transition: opacity .4s ease; position: relative; }
+  .flow-step.active { opacity: 1; }
+  .flow-step.done { opacity: .7; }
+
+  .step-num-col { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--warm); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--mid); transition: all .3s ease; flex-shrink: 0; }
+  .flow-step.active .step-num { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .flow-step.done .step-num { background: var(--forest); border-color: var(--forest); color: #fff; }
+
+  .step-line { flex: 1; width: 1.5px; background: var(--border); margin: 4px 0; min-height: 20px; }
+  .flow-step:last-child .step-line { display: none; }
+
+  .step-content { flex: 1; padding-bottom: 8px; }
+  .step-agent { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .step-action { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--mid); margin-bottom: 8px; line-height: 1.5; }
+
+  .step-output { background: rgba(42,61,50,.06); border-left: 2px solid var(--forest); padding: 8px 12px; border-radius: 0 var(--r) var(--r) 0; display: none; animation: slideRight .3s ease; }
+  .flow-step.active .step-output, .flow-step.done .step-output { display: block; }
+  @keyframes slideRight { from { opacity:0;transform:translateX(-8px); } to { opacity:1;transform:translateX(0); } }
+
+  .step-output-label { font-size: 8.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--forest); opacity: .7; margin-bottom: 3px; }
+  .step-output-text { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; color: #444; line-height: 1.5; }
+
+  /* Reset note */
+  .flow-complete { text-align: center; padding: 16px; background: rgba(42,61,50,.06); border-radius: var(--r); margin-top: 12px; display: none; }
+  .flow-complete.visible { display: block; }
+  .flow-complete-text { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--forest); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Hooked on Hue</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Org Map</a>
+    <a class="nav-link" href="ecosystem.html">Ecosystem</a>
+    <a class="nav-link" href="third-shift.html">Third Shift</a>
+    <div class="nav-dropdown">
+      <button class="nav-link active dropdown-toggle">Archive ▾</button>
+      <div class="dropdown-menu">
+        <a href="ecosystem.html">By Department</a>
+        <a href="data-flow.html" style="font-weight:600;">Data Flow</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-live"><span class="live-dot"></span>Live</div>
+</nav>
+
+<div class="page">
+<div class="flow-wrap">
+
+  <div class="flow-masthead">
+    <div class="flow-eyebrow">Hooked on Hue · Archive — Data Flow</div>
+    <h1 class="flow-title">How the Studio <em>Actually Works</em></h1>
+    <p class="flow-sub">Watch how a single input moves through the full AI team — step by step.</p>
+  </div>
+
+  <div id="flowContainer"></div>
+
+</div>
+</div>
+
+<footer>
+  <span class="footer-brand">Hooked on Hue</span>
+  <span class="footer-tagline">Data Flow · Archive</span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+const flowStates = {}; // flowId -> { step, interval, playing }
+
+function renderFlows() {
+  const container = document.getElementById('flowContainer');
+  HOH.dataFlows.forEach((flow, fi) => {
+    flowStates[flow.id] = { step: -1, interval: null, playing: false };
+
+    const block = document.createElement('div');
+    block.className = 'flow-block';
+    block.innerHTML = `
+      <div class="flow-block-header">
+        <div>
+          <div class="flow-block-title">${flow.title}</div>
+          <div class="flow-block-sub">${flow.subtitle}</div>
+        </div>
+        <button class="flow-play-btn" id="btn-${flow.id}" onclick="toggleFlow('${flow.id}')">▶ Play</button>
+      </div>
+      <div class="flow-steps" id="steps-${flow.id}">
+        ${flow.steps.map((s, si) => `
+          <div class="flow-step" id="step-${flow.id}-${si}">
+            <div class="step-num-col">
+              <div class="step-num">${si + 1}</div>
+              ${si < flow.steps.length - 1 ? '<div class="step-line"></div>' : ''}
+            </div>
+            <div class="step-content">
+              <div class="step-agent">${s.agent}</div>
+              <div class="step-action">${s.action}</div>
+              <div class="step-output">
+                <div class="step-output-label">→ Output</div>
+                <div class="step-output-text">${s.output}</div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="flow-complete" id="complete-${flow.id}">
+        <div class="flow-complete-text">Flow complete. The studio handled it — Dorian just shows up to the result.</div>
+      </div>
+    `;
+    container.appendChild(block);
+  });
+}
+
+function toggleFlow(id) {
+  const state = flowStates[id];
+  if (state.playing) {
+    pauseFlow(id);
+  } else {
+    if (state.step >= HOH.dataFlows.find(f=>f.id===id).steps.length - 1) {
+      resetFlow(id);
+    }
+    playFlow(id);
+  }
+}
+
+function playFlow(id) {
+  const state = flowStates[id];
+  const flow = HOH.dataFlows.find(f => f.id === id);
+  state.playing = true;
+  document.getElementById(`btn-${id}`).textContent = '⏸ Pause';
+  document.getElementById(`btn-${id}`).classList.add('playing');
+
+  function advance() {
+    state.step++;
+    if (state.step >= flow.steps.length) {
+      pauseFlow(id);
+      document.getElementById(`btn-${id}`).textContent = '↩ Replay';
+      document.getElementById(`complete-${id}`).classList.add('visible');
+      return;
+    }
+    // mark previous as done
+    if (state.step > 0) {
+      document.getElementById(`step-${id}-${state.step-1}`).classList.remove('active');
+      document.getElementById(`step-${id}-${state.step-1}`).classList.add('done');
+    }
+    document.getElementById(`step-${id}-${state.step}`).classList.add('active');
+  }
+
+  advance(); // show first immediately
+  state.interval = setInterval(advance, 1800);
+}
+
+function pauseFlow(id) {
+  const state = flowStates[id];
+  state.playing = false;
+  clearInterval(state.interval);
+  const btn = document.getElementById(`btn-${id}`);
+  if (!btn.textContent.includes('Replay')) {
+    btn.textContent = '▶ Play';
+    btn.classList.remove('playing');
+  }
+}
+
+function resetFlow(id) {
+  const state = flowStates[id];
+  state.step = -1;
+  const flow = HOH.dataFlows.find(f => f.id === id);
+  flow.steps.forEach((_, si) => {
+    const el = document.getElementById(`step-${id}-${si}`);
+    el.classList.remove('active', 'done');
+  });
+  document.getElementById(`complete-${id}`).classList.remove('visible');
+  document.getElementById(`btn-${id}`).textContent = '▶ Play';
+  document.getElementById(`btn-${id}`).classList.remove('playing');
+}
+
+renderFlows();
+</script>
+</body>
+</html>

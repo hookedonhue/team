@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoH Studio — Ecosystem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .eco-wrap { max-width: 980px; margin: 0 auto; padding: 52px 24px 80px; }
+
+  .eco-masthead { text-align: center; margin-bottom: 52px; animation: fadeUp .7s ease both; }
+  .eco-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .eco-title { font-family: 'Playfair Display', serif; font-size: clamp(30px,4.5vw,48px); font-weight: 400; line-height: 1.15; }
+  .eco-title em { font-style: italic; color: var(--gold); }
+  .eco-sub { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--mid); margin-top: 10px; }
+
+  /* EA section */
+  .ea-section { display: flex; justify-content: center; margin-bottom: 44px; animation: fadeUp .7s .1s ease both; }
+  .ea-eco-card { background: var(--ink); border-radius: var(--r); padding: 20px 28px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(197,151,62,.2); max-width: 420px; width: 100%; }
+  .ea-eco-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(197,151,62,.2); border: 1px solid rgba(197,151,62,.35); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .ea-eco-info .title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+  .ea-eco-info .sub { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-pale); opacity: .75; }
+  .ea-eco-info .desc { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(249,245,238,.6); margin-top: 6px; line-height: 1.55; }
+
+  /* Dept block */
+  .dept-block { margin-bottom: 48px; animation: fadeUp .6s ease both; }
+  .dept-block:nth-child(1) { animation-delay: .2s; }
+  .dept-block:nth-child(2) { animation-delay: .28s; }
+  .dept-block:nth-child(3) { animation-delay: .36s; }
+
+  /* Chief header */
+  .chief-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding: 18px 22px; background: var(--ink); border-radius: var(--r); border: 1px solid rgba(197,151,62,.15); position: relative; overflow: hidden; }
+  .chief-header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(197,151,62,.08) 0%,transparent 60%); pointer-events: none; }
+  .chief-h-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(197,151,62,.2); border: 1px solid rgba(197,151,62,.3); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .chief-h-info { flex: 1; }
+  .chief-h-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+  .chief-h-title { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-pale); opacity: .7; }
+  .chief-h-desc { font-family: 'Cormorant Garamond', serif; font-size: 13px; line-height: 1.55; color: rgba(249,245,238,.55); margin-top: 4px; }
+  .chief-h-count { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); opacity: .7; white-space: nowrap; }
+
+  /* Agent cards grid */
+  .eco-agents { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-left: 20px; border-left: 2px solid; }
+  @media (max-width: 720px) { .eco-agents { grid-template-columns: repeat(2, 1fr); padding-left: 0; border-left: none; } }
+  @media (max-width: 480px) { .eco-agents { grid-template-columns: 1fr; } }
+
+  .eco-agent { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 16px; }
+  .eco-a-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .eco-a-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; border: 1px solid var(--border-soft); }
+  .eco-a-name { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .eco-a-role { font-size: 9px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .eco-a-desc { font-family: 'Cormorant Garamond', serif; font-size: 13px; line-height: 1.6; color: #555; }
+  .eco-a-managed { font-size: 9px; color: var(--mid); margin-top: 8px; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Hooked on Hue</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Org Map</a>
+    <a class="nav-link active" href="ecosystem.html">Ecosystem</a>
+    <a class="nav-link" href="third-shift.html">Third Shift</a>
+    <div class="nav-dropdown">
+      <button class="nav-link dropdown-toggle">Archive ▾</button>
+      <div class="dropdown-menu">
+        <a href="ecosystem.html">By Department</a>
+        <a href="data-flow.html">Data Flow</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-live"><span class="live-dot"></span>Live</div>
+</nav>
+
+<div class="page">
+<div class="eco-wrap">
+
+  <div class="eco-masthead">
+    <div class="eco-eyebrow">Hooked on Hue · By Department</div>
+    <h1 class="eco-title">The AI Creative <em>Ecosystem</em></h1>
+    <p class="eco-sub">Every function. Every channel. Powered by AI collaborators trained on HoH's voice and vision.</p>
+  </div>
+
+  <!-- EA -->
+  <div class="ea-section">
+    <div class="ea-eco-card">
+      <div class="ea-eco-avatar">🗝️</div>
+      <div class="ea-eco-info">
+        <div class="title">The Executive Assistant</div>
+        <div class="sub">Personal Operations · Reports to Dorian</div>
+        <div class="desc">Serves Dorian directly — not the brand. Weekly reviews, CPA tracking, consulting pipeline, context switching across all three engines.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Departments -->
+  <div id="ecoGrid"></div>
+
+</div>
+</div>
+
+<footer>
+  <span class="footer-brand">Hooked on Hue</span>
+  <span class="footer-tagline">23 AI Collaborators · Live In Full Color</span>
+</footer>
+
+<script src="data.js"></script>
+<script>
+const deptColors = ['#2A3D32','#8B4513','#4A3728'];
+
+function render() {
+  const grid = document.getElementById('ecoGrid');
+  HOH.departments.forEach((dept, di) => {
+    const color = deptColors[di];
+    const chief = HOH.chiefs[di];
+    const block = document.createElement('div');
+    block.className = 'dept-block';
+
+    block.innerHTML = `
+      <div class="chief-header">
+        <div class="chief-h-icon">${chief.icon}</div>
+        <div class="chief-h-info">
+          <div class="chief-h-name">${chief.name}</div>
+          <div class="chief-h-title">${dept.name}</div>
+          <div class="chief-h-desc">${chief.desc}</div>
+        </div>
+        <div class="chief-h-count">${dept.agents.length} AI reports</div>
+      </div>
+      <div class="eco-agents" style="border-color:${color}20;" id="eco-agents-${di}"></div>
+    `;
+    grid.appendChild(block);
+
+    const agentsDiv = block.querySelector(`#eco-agents-${di}`);
+    dept.agents.forEach(a => {
+      const card = document.createElement('div');
+      card.className = 'eco-agent';
+      card.innerHTML = `
+        <div class="eco-a-top">
+          <div class="eco-a-icon" style="background:${a.iconBg};">${a.icon}</div>
+          <div class="eco-a-name">${a.name}</div>
+        </div>
+        <div class="eco-a-role">${a.role}</div>
+        <div class="eco-a-desc">${a.desc}</div>
+        <div class="eco-a-managed">Managed by ${chief.name} · <span style="color:${color};font-weight:500;">${dept.name}</span></div>
+        <div class="status status-${a.status}" style="margin-top:10px;"><span class="status-dot"></span>${a.statusLabel}</div>
+      `;
+      agentsDiv.appendChild(card);
+    });
+  });
+}
+
+render();
+</script>
+</body>
+</html>
