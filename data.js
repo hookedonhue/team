@@ -4,7 +4,7 @@ const HOH = {
 
   founder: {
     name: 'Dorian Davis',
-    title: 'Founder & Creative Director',
+    title: 'Founder & Chief Creative Officer',
     photo: 'https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg',
     stats: ['26 AI Collaborators', '4 Chiefs']
   },
