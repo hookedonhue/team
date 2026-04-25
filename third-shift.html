@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="shared.css">
 <style>
   html,body{height:100%;background:#0f0e0d;}
-  body{color:#e8e2d8;margin:0;}
+  *{box-sizing:border-box;}
+  body{color:#e8e2d8;margin:0;min-height:100vh;}
   nav{background:rgba(15,14,13,.97);border-bottom-color:rgba(255,255,255,.07);}
   .nav-brand,.nav-link{color:rgba(232,226,216,.42);}
   .nav-link:hover{color:#e8e2d8;background:rgba(255,255,255,.05);}
@@ -20,8 +21,8 @@
   .dropdown-menu a:hover{background:rgba(242,112,19,.1);color:var(--orange);}
   .nav-live{color:var(--orange);}
 
-  /* Stars */
-  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;background:#0f0e0d;}
+  /* Stars — fixed full coverage */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
   .star{position:absolute;border-radius:50%;background:rgba(232,226,216,.45);animation:tw var(--d) ease-in-out infinite;}
   @keyframes tw{0%,100%{opacity:var(--o);}50%{opacity:.04;}}
 
