@@ -33,7 +33,8 @@
   }
   .founder-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(242,112,19,.12) 0%,transparent 55%); pointer-events: none; }
   .founder-card:hover { border-color: var(--orange); }
-  .f-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--white); flex-shrink: 0; }
+  .f-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--white); flex-shrink: 0; overflow: hidden; border: 2px solid rgba(242,112,19,.5); }
+  .f-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
   .f-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
   .f-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(238,231,223,.55); }
   .f-stats { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
@@ -186,13 +187,13 @@
     <!-- FOUNDER -->
     <div class="founder-node">
       <div class="founder-card" id="founderCard" onclick="toggleFounder()">
-        <div class="f-avatar">DD</div>
+        <div class="f-avatar"><img src="https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg" alt="Dorian Davis"></div>
         <div>
           <div class="f-name">Dorian Davis</div>
           <div class="f-title">Founder & Creative Director</div>
           <div class="f-stats">
-            <span class="f-stat">23 AI Collaborators</span>
-            <span class="f-stat">3 Chiefs</span>
+            <span class="f-stat">27 AI Collaborators</span>
+            <span class="f-stat">4 Chiefs</span>
           </div>
         </div>
         <div class="expand-indicator">▾</div>
@@ -208,7 +209,7 @@
       <div class="dp-body">
         <div>
           <div class="dp-label">Role</div>
-          <div class="dp-text">Founder and Creative Director of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. All 23 AI collaborators report up through 3 Chiefs directly to Dorian.</div>
+          <div class="dp-text">Founder and Creative Director of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. All 27 AI collaborators report up through 4 Chiefs directly to Dorian.</div>
         </div>
         <div>
           <div class="dp-label">Direct Reports</div>
@@ -217,6 +218,7 @@
             <li>Chief of Content</li>
             <li>Chief of Growth & Revenue</li>
             <li>Chief of Creative Intelligence</li>
+            <li>Chief Financial Officer</li>
           </ul>
         </div>
       </div>
