@@ -3,118 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hooked on Hue — AI Creative Studio</title>
+<title>Hooked on Hue — AI Creative Team</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  /* ── ORG MAP SPECIFIC ────────────────────── */
-  .org-wrap { max-width: 900px; margin: 0 auto; padding: 52px 24px 80px; }
+  .org-wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
 
-  /* Masthead */
-  .masthead { text-align: center; margin-bottom: 48px; animation: fadeUp .7s ease both; }
-  .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-  .masthead-title { font-family: 'Playfair Display', serif; font-size: clamp(32px,5vw,52px); font-weight: 400; line-height: 1.1; }
-  .masthead-title em { font-style: italic; color: var(--gold); }
-  .masthead-sub { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; font-weight: 300; color: var(--mid); margin-top: 12px; }
-  .rule { width: 48px; height: 1px; background: var(--gold); margin: 20px auto 0; opacity: .55; }
+  /* ── Masthead ── */
+  .masthead { text-align: center; margin-bottom: 44px; animation: fadeUp .65s ease both; }
+  .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .masthead-title { font-family: 'Playfair Display', serif; font-size: clamp(30px,5vw,50px); font-weight: 400; line-height: 1.1; color: var(--ink); }
+  .masthead-title em { font-style: italic; color: var(--orange); }
+  .masthead-sub { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--mid); margin-top: 10px; }
+  .rule { width: 40px; height: 1.5px; background: var(--orange); margin: 16px auto 0; opacity: .6; }
 
-  /* Founder + EA row */
-  .top-row { display: flex; justify-content: center; align-items: flex-start; gap: 16px; margin-bottom: 32px; animation: fadeUp .7s .1s ease both; flex-wrap: wrap; }
+  /* ── Org tree ── */
+  .org-tree { display: flex; flex-direction: column; align-items: center; }
 
-  .founder-card { background: var(--ink); border-radius: var(--r); padding: 24px 32px; display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); min-width: 280px; }
-  .founder-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(125deg,rgba(197,151,62,.15) 0%,transparent 55%); pointer-events: none; }
-  .f-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--ink); flex-shrink: 0; }
+  /* ── Level: Founder ── */
+  .founder-node { animation: fadeUp .65s .08s ease both; }
+  .founder-card {
+    background: var(--ink); border-radius: var(--r);
+    padding: 22px 32px; display: flex; align-items: center; gap: 20px;
+    box-shadow: var(--shadow-lg); cursor: pointer;
+    border: 2px solid transparent; transition: border-color .2s ease;
+    position: relative; overflow: hidden;
+  }
+  .founder-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(242,112,19,.12) 0%,transparent 55%); pointer-events: none; }
+  .founder-card:hover { border-color: var(--orange); }
+  .f-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--white); flex-shrink: 0; }
   .f-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
-  .f-title { font-size: 10px; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-pale); opacity: .85; }
+  .f-title { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(238,231,223,.55); }
   .f-stats { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .f-stat { background: rgba(197,151,62,.15); border: 1px solid rgba(197,151,62,.28); border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 500; color: var(--gold-pale); }
+  .f-stat { background: rgba(242,112,19,.18); border: 1px solid rgba(242,112,19,.32); border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 500; color: rgba(242,112,19,.9); }
+  .expand-indicator { margin-left: auto; font-size: 11px; color: rgba(238,231,223,.4); transition: transform .25s ease; flex-shrink: 0; padding-left: 12px; }
+  .founder-card.expanded .expand-indicator { transform: rotate(180deg); }
 
-  .ea-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; cursor: pointer; transition: all .22s ease; position: relative; overflow: hidden; min-width: 220px; max-width: 260px; }
-  .ea-card::before { content: 'EA'; position: absolute; top: 12px; right: 14px; font-size: 9px; font-weight: 600; letter-spacing: .15em; color: var(--gold); opacity: .6; }
-  .ea-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(197,151,62,.45); }
-  .ea-card.open { border-color: var(--gold); }
-  .ea-icon { width: 34px; height: 34px; border-radius: 50%; background: #F5F0E8; display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 10px; border: 1px solid var(--border-soft); }
-  .ea-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-  .ea-role { font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .ea-desc { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; line-height: 1.6; color: #666; }
+  /* ── Connectors ── */
+  .v-line { width: 1.5px; height: 24px; background: var(--border); margin: 0 auto; }
+  .h-branch { display: flex; align-items: flex-start; justify-content: center; position: relative; }
+  .h-branch::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1.5px; height: 24px; background: var(--border); }
 
-  /* Connector */
-  .connector { display: flex; justify-content: center; }
-  .connector-line { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--gold), transparent); opacity: .5; }
+  /* ── EA + Chiefs row ── */
+  .top-reports { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
 
-  /* Chiefs row */
-  .chiefs-section { margin-bottom: 0; animation: fadeUp .7s .2s ease both; }
-  .chiefs-label { text-align: center; margin-bottom: 20px; position: relative; }
-  .chiefs-label::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
-  .chiefs-label span { position: relative; z-index: 1; background: var(--cream); padding: 0 16px; font-size: 9px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--mid); }
+  /* EA node */
+  .ea-node { display: flex; flex-direction: column; align-items: center; }
+  .ea-connector { width: 1.5px; height: 24px; background: var(--border); }
 
-  .chiefs-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 8px; }
-  @media (max-width: 700px) { .chiefs-row { grid-template-columns: 1fr; } }
+  .ea-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 16px 20px;
+    cursor: pointer; transition: all .2s ease;
+    min-width: 190px; max-width: 220px;
+    position: relative;
+  }
+  .ea-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+  .ea-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .ea-card:hover::after { transform: scaleX(1); }
+  .ea-card.selected { border-color: var(--orange); box-shadow: var(--shadow-sm); }
+  .ea-card.selected::after { transform: scaleX(1); }
+  .ea-tag { font-size: 8.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .ea-icon { font-size: 18px; margin-bottom: 6px; }
+  .ea-name { font-family: 'Playfair Display', serif; font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .ea-desc { font-family: 'Cormorant Garamond', serif; font-size: 13px; line-height: 1.55; color: var(--mid); }
 
-  .chief-card { background: var(--ink); border-radius: var(--r); padding: 20px 22px; cursor: pointer; transition: all .22s ease; position: relative; overflow: hidden; border: 1px solid rgba(197,151,62,.15); }
-  .chief-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(197,151,62,.1) 0%,transparent 60%); pointer-events: none; }
-  .chief-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: rgba(197,151,62,.4); }
-  .chief-card.open { border-color: var(--gold); }
-  .chief-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(197,151,62,.2); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--gold); font-weight: 700; margin-bottom: 12px; border: 1px solid rgba(197,151,62,.3); }
-  .chief-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
-  .chief-title { font-size: 9px; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: var(--gold-pale); opacity: .7; margin-bottom: 10px; }
-  .chief-desc { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; line-height: 1.6; color: rgba(250,247,238,.65); }
-  .chief-count { margin-top: 14px; font-size: 9px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); opacity: .7; }
+  /* Chiefs group */
+  .chiefs-group { display: flex; flex-direction: column; align-items: center; }
+  .chiefs-connector { width: 1.5px; height: 24px; background: var(--border); }
+  .chiefs-label-row { font-size: 9px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--mid); margin-bottom: 12px; text-align: center; }
+  .chiefs-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* Dept sections */
-  .dept-section { margin-top: 32px; animation: fadeUp .6s ease both; }
-  .dept-section:nth-child(1) { animation-delay: .3s; }
-  .dept-section:nth-child(2) { animation-delay: .38s; }
-  .dept-section:nth-child(3) { animation-delay: .46s; }
+  /* Chief card */
+  .chief-node { display: flex; flex-direction: column; align-items: center; }
+  .chief-card {
+    background: var(--ink); border-radius: var(--r);
+    padding: 18px 20px; width: 220px;
+    cursor: pointer; transition: all .2s ease;
+    border: 1.5px solid rgba(242,112,19,.15);
+    position: relative; overflow: hidden;
+  }
+  .chief-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(242,112,19,.08) 0%,transparent 60%); pointer-events: none; }
+  .chief-card:hover { border-color: rgba(242,112,19,.5); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .chief-card.selected { border-color: var(--orange); }
+  .chief-icon { font-size: 16px; color: var(--orange); font-weight: 700; margin-bottom: 10px; }
+  .chief-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 3px; line-height: 1.3; }
+  .chief-dept { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(238,231,223,.45); margin-bottom: 8px; }
+  .chief-desc { font-family: 'Cormorant Garamond', serif; font-size: 13px; line-height: 1.55; color: rgba(238,231,223,.55); }
+  .chief-reports { font-size: 9px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); opacity: .75; margin-top: 10px; }
+  .chief-chevron { font-size: 10px; color: rgba(238,231,223,.3); margin-top: 8px; transition: transform .25s ease; display: block; text-align: center; }
+  .chief-card.selected .chief-chevron { transform: rotate(180deg); }
 
-  .dept-connector { display: flex; justify-content: center; margin: 4px 0; }
-  .dept-connector-line { width: 1px; height: 20px; opacity: .35; }
+  /* Agent grid under each chief */
+  .dept-agents-wrap { width: 100%; max-width: 700px; }
+  .dept-connector { width: 1.5px; height: 20px; background: var(--border); margin: 0 auto; }
+  .dept-agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 4px; }
+  @media (max-width: 680px) { .dept-agents-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 440px) { .dept-agents-grid { grid-template-columns: 1fr; } }
 
-  .dept-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 0 4px; }
-  .dept-badge { font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid; }
-  .dept-line { flex: 1; height: 1px; opacity: .3; }
+  /* Agent card */
+  .agent-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 14px 16px;
+    cursor: pointer; transition: all .18s ease;
+    position: relative;
+  }
+  .agent-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .22s ease; }
+  .agent-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .agent-card:hover::after { transform: scaleX(1); }
+  .agent-card.selected { border-color: var(--orange); box-shadow: var(--shadow-sm); }
+  .agent-card.selected::after { transform: scaleX(1); }
+  .a-top { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 7px; }
+  .a-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; border: 1px solid var(--border-soft); }
+  .a-name { font-family: 'Playfair Display', serif; font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 1px; }
+  .a-role { font-size: 8.5px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; color: var(--orange); }
+  .a-desc { font-family: 'Cormorant Garamond', serif; font-size: 12.5px; line-height: 1.55; color: var(--mid); }
 
-  .agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  @media (max-width: 700px) { .agents-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 900px) and (min-width: 701px) { .agents-grid { grid-template-columns: repeat(2, 1fr); } }
+  /* ── Detail panel ── */
+  .detail-panel {
+    display: none; background: var(--white);
+    border: 1.5px solid var(--orange);
+    border-radius: var(--r); padding: 24px 28px;
+    margin-top: 12px; width: 100%;
+    animation: panelIn .25s ease;
+    max-width: 700px;
+  }
+  .detail-panel.visible { display: block; }
+  .dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .dp-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--ink); }
+  .dp-close { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; font-size: 12px; color: var(--mid); display: flex; align-items: center; justify-content: center; transition: all .15s ease; }
+  .dp-close:hover { border-color: var(--orange); color: var(--ink); }
+  .dp-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 500px) { .dp-body { grid-template-columns: 1fr; } }
+  .dp-label { font-size: 9px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--orange); margin-bottom: 7px; }
+  .dp-text { font-family: 'Cormorant Garamond', serif; font-size: 14.5px; line-height: 1.7; color: #444; }
+  .dp-list { list-style: none; }
+  .dp-list li { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; color: #444; padding: 4px 0; border-bottom: 1px solid rgba(44,19,27,.06); display: flex; align-items: flex-start; gap: 8px; }
+  .dp-list li::before { content: '—'; color: var(--orange); font-size: 11px; opacity: .8; flex-shrink: 0; margin-top: 1px; }
+  .dp-project { margin-top: 12px; font-size: 11px; font-style: italic; color: var(--mid); }
 
-  .agent-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 18px; cursor: pointer; transition: all .2s ease; position: relative; overflow: hidden; }
-  .agent-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; transform: scaleX(0); transform-origin: left; transition: transform .26s ease; }
-  .agent-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(197,151,62,.4); }
-  .agent-card:hover::after, .agent-card.open::after { transform: scaleX(1); }
-  .agent-card.open { border-color: var(--gold); }
+  /* ── Collapse/expand animations ── */
+  .collapsible { overflow: hidden; transition: max-height .35s ease, opacity .3s ease; max-height: 0; opacity: 0; }
+  .collapsible.open { max-height: 2000px; opacity: 1; }
 
-  .a-top { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 9px; }
-  .a-icon { width: 33px; height: 33px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; border: 1px solid var(--border-soft); }
-  .a-name { font-family: 'Playfair Display', serif; font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 2px; }
-  .a-role { font-size: 9px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); }
-  .a-desc { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; line-height: 1.6; color: #555; }
-
-  /* Drawer */
-  .drawer { display: none; background: var(--warm); border: 1px solid var(--border); border-radius: var(--r); padding: 26px; margin-top: 10px; animation: panelIn .25s ease; grid-column: 1 / -1; }
-  .drawer.open { display: block; }
-  .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-  .drawer-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; }
-  .drawer-close { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; font-size: 12px; color: var(--mid); display: flex; align-items: center; justify-content: center; transition: all .18s ease; }
-  .drawer-close:hover { border-color: var(--gold); color: var(--ink); }
-  .drawer-body { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  @media (max-width: 560px) { .drawer-body { grid-template-columns: 1fr; } }
-  .d-label { font-size: 9px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .d-text { font-family: 'Cormorant Garamond', serif; font-size: 15px; line-height: 1.7; color: #444; }
-  .d-list { list-style: none; }
-  .d-list li { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: #444; padding: 4px 0; border-bottom: 1px solid rgba(197,151,62,.1); display: flex; align-items: flex-start; gap: 8px; }
-  .d-list li::before { content: '—'; color: var(--gold); font-size: 11px; opacity: .7; flex-shrink: 0; margin-top: 1px; }
-  .d-project { margin-top: 14px; font-size: 10px; font-style: italic; color: var(--mid); }
-
-  /* EA drawer — full width */
-  .ea-drawer { grid-column: 1 / -1; max-width: 700px; margin: 16px auto 0; }
-
-  /* Chief drawer */
-  .chief-drawer { grid-column: 1 / -1; }
-
-  @keyframes panelIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  /* ── Full width expand in chiefs row ── */
+  .chiefs-agents-row { width: 100%; display: flex; justify-content: center; }
 </style>
 </head>
 <body>
@@ -128,7 +163,7 @@
     <div class="nav-dropdown">
       <button class="nav-link dropdown-toggle">Archive ▾</button>
       <div class="dropdown-menu">
-        <a href="ecosystem.html">By Department</a>
+        <a href="roster.html">Full Roster</a>
         <a href="data-flow.html">Data Flow</a>
       </div>
     </div>
@@ -140,72 +175,111 @@
 <div class="org-wrap">
 
   <div class="masthead">
-    <div class="eyebrow">Hooked on Hue · AI Creative Studio</div>
+    <div class="eyebrow">Hooked on Hue · AI Creative Team</div>
     <h1 class="masthead-title">The Complete<br><em>Creative Operation</em></h1>
     <p class="masthead-sub">"We don't outsource the voice. We architect it — then build systems that carry it forward."</p>
     <div class="rule"></div>
   </div>
 
-  <!-- Top row: Founder + EA -->
-  <div class="top-row">
-    <div class="founder-card">
-      <div class="f-avatar">DD</div>
-      <div>
-        <div class="f-name">Dorian Davis</div>
-        <div class="f-title">Founder & Creative Director</div>
-        <div class="f-stats">
-          <span class="f-stat">23 AI Collaborators</span>
-          <span class="f-stat">3 Chiefs</span>
-          <span class="f-stat">Live In Full Color</span>
+  <div class="org-tree">
+
+    <!-- FOUNDER -->
+    <div class="founder-node">
+      <div class="founder-card" id="founderCard" onclick="toggleFounder()">
+        <div class="f-avatar">DD</div>
+        <div>
+          <div class="f-name">Dorian Davis</div>
+          <div class="f-title">Founder & Creative Director</div>
+          <div class="f-stats">
+            <span class="f-stat">23 AI Collaborators</span>
+            <span class="f-stat">3 Chiefs</span>
+          </div>
+        </div>
+        <div class="expand-indicator">▾</div>
+      </div>
+    </div>
+
+    <!-- FOUNDER DETAIL -->
+    <div class="detail-panel" id="founderDetail" style="max-width:520px;margin-top:10px;">
+      <div class="dp-head">
+        <div class="dp-title">Dorian Davis</div>
+        <button class="dp-close" onclick="closeFounder()">✕</button>
+      </div>
+      <div class="dp-body">
+        <div>
+          <div class="dp-label">Role</div>
+          <div class="dp-text">Founder and Creative Director of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. All 23 AI collaborators report up through 3 Chiefs directly to Dorian.</div>
+        </div>
+        <div>
+          <div class="dp-label">Direct Reports</div>
+          <ul class="dp-list">
+            <li>Executive Assistant (personal operations)</li>
+            <li>Chief of Content</li>
+            <li>Chief of Growth & Revenue</li>
+            <li>Chief of Creative Intelligence</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="ea-card" id="ea-card" onclick="toggleEA()">
-      <div class="ea-icon">🗝️</div>
-      <div class="ea-name">The Executive Assistant</div>
-      <div class="ea-role">Personal Operations</div>
-      <div class="ea-desc">Serves Dorian — not the brand. Runs the weekly review, manages context switching, tracks CPA timeline.</div>
-      <div class="status status-scheduled" style="margin-top:12px;"><span class="status-dot"></span>Scheduled</div>
-    </div>
-  </div>
 
-  <!-- EA Drawer -->
-  <div class="drawer ea-drawer" id="ea-drawer">
-    <div class="drawer-head">
-      <div class="drawer-title">The Executive Assistant</div>
-      <button class="drawer-close" onclick="toggleEA()">✕</button>
-    </div>
-    <div class="drawer-body">
-      <div>
-        <div class="d-label">What It Does</div>
-        <div class="d-text">The only agent whose job is Dorian Davis, not Hooked on Hue. Holds the full picture across WETA, consulting, and HoH simultaneously. When everything is on fire, this agent tells you what to drop and what to protect.</div>
+    <div class="v-line" style="margin-top:8px;"></div>
+
+    <!-- TOP REPORTS: EA + CHIEFS -->
+    <div class="collapsible open" id="topReports" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+
+      <div class="top-reports" style="width:100%;max-width:900px;">
+
+        <!-- EA -->
+        <div class="ea-node">
+          <div class="ea-connector"></div>
+          <div class="ea-card" id="eaCard" onclick="toggleEA()">
+            <div class="ea-tag">Executive Support</div>
+            <div class="ea-icon">🗝️</div>
+            <div class="ea-name">The Executive Assistant</div>
+            <div class="ea-desc">Serves Dorian directly. Weekly planning, context switching, decision queue, personal communications.</div>
+            <div class="status status-scheduled"><span class="status-dot"></span>Scheduled</div>
+          </div>
+          <div class="collapsible" id="eaDetail" style="width:100%;max-width:220px;">
+            <div style="height:8px;"></div>
+            <div class="detail-panel visible" style="margin-top:0;">
+              <div class="dp-head">
+                <div class="dp-title" style="font-size:15px;">The Executive Assistant</div>
+                <button class="dp-close" onclick="closeEA()">✕</button>
+              </div>
+              <div>
+                <div class="dp-label">What It Does</div>
+                <div class="dp-text" style="font-size:13.5px;">The only agent whose job is Dorian Davis, not Hooked on Hue. Holds the full picture of everything in motion simultaneously.</div>
+                <div class="dp-label" style="margin-top:12px;">Capabilities</div>
+                <ul class="dp-list">
+                  <li>Weekly review and priority setting</li>
+                  <li>Context briefs between projects</li>
+                  <li>Decision queue management</li>
+                  <li>Personal communications drafting</li>
+                  <li>Pipeline tracking across engagements</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHIEFS GROUP -->
+        <div class="chiefs-group" style="flex:1;max-width:680px;">
+          <div class="ea-connector"></div>
+          <div class="chiefs-label-row">Senior Agents — Department Chiefs</div>
+          <div class="chiefs-row">
+            <!-- Chief cards rendered by JS -->
+            <div id="chiefsRow"></div>
+          </div>
+        </div>
+
       </div>
-      <div>
-        <div class="d-label">Key Capabilities</div>
-        <ul class="d-list">
-          <li>Weekly review — prods Sunday evening, formats Obsidian note</li>
-          <li>Context briefs when switching between engines</li>
-          <li>CPA study tracker — monitors exam timeline</li>
-          <li>Consulting pipeline — Ryan deliverables, new clients</li>
-          <li>Decision queue — surfaces deferred decisions at right moment</li>
-          <li>Personal communications drafting</li>
-        </ul>
-      </div>
+
     </div>
+
   </div>
 
-  <!-- Connector to chiefs -->
-  <div class="connector" style="margin-top:8px;"><div class="connector-line"></div></div>
-
-  <!-- Chiefs -->
-  <div class="chiefs-section">
-    <div class="chiefs-label"><span>Senior Agents — Department Chiefs</span></div>
-    <div class="chiefs-row" id="chiefsRow"></div>
-    <div id="chiefDrawer" class="drawer chief-drawer"></div>
-  </div>
-
-  <!-- Departments -->
-  <div id="departments"></div>
+  <!-- Chief detail panels - full width below -->
+  <div id="chiefPanels" style="margin-top:0;"></div>
 
 </div>
 </div>
@@ -217,187 +291,216 @@
 
 <script src="data.js"></script>
 <script>
+/* ── State ─────────────────────── */
+let founderOpen = false;
+let eaOpen = false;
+let openChief = null;
+let openAgent = null;
 
-/* ── Status badge ──────────────────────────── */
-function statusBadge(status, label) {
+/* ── Founder ───────────────────── */
+function toggleFounder() {
+  founderOpen = !founderOpen;
+  document.getElementById('founderCard').classList.toggle('expanded', founderOpen);
+  const detail = document.getElementById('founderDetail');
+  detail.classList.toggle('visible', founderOpen);
+  document.getElementById('founderCard').querySelector('.expand-indicator').style.transform = founderOpen ? 'rotate(180deg)' : '';
+}
+function closeFounder() {
+  founderOpen = false;
+  document.getElementById('founderCard').classList.remove('expanded');
+  document.getElementById('founderDetail').classList.remove('visible');
+  document.getElementById('founderCard').querySelector('.expand-indicator').style.transform = '';
+}
+
+/* ── EA ────────────────────────── */
+function toggleEA() {
+  eaOpen = !eaOpen;
+  document.getElementById('eaCard').classList.toggle('selected', eaOpen);
+  document.getElementById('eaDetail').classList.toggle('open', eaOpen);
+}
+function closeEA() {
+  eaOpen = false;
+  document.getElementById('eaCard').classList.remove('selected');
+  document.getElementById('eaDetail').classList.remove('open');
+}
+
+/* ── Status badge ──────────────── */
+function badge(status, label) {
   return `<div class="status status-${status}"><span class="status-dot"></span>${label}</div>`;
 }
 
-/* ── EA toggle ────────────────────────────── */
-function toggleEA() {
-  const card = document.getElementById('ea-card');
-  const drawer = document.getElementById('ea-drawer');
-  const open = drawer.classList.toggle('open');
-  card.classList.toggle('open', open);
-  if (open) setTimeout(() => drawer.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
-}
-
-/* ── Chiefs ───────────────────────────────── */
-let openChief = null;
-
+/* ── Chiefs ────────────────────── */
 function renderChiefs() {
   const row = document.getElementById('chiefsRow');
-  HOH.chiefs.forEach((c, i) => {
-    const div = document.createElement('div');
-    div.className = 'chief-card';
-    div.dataset.id = i;
-    div.innerHTML = `
-      <div class="chief-icon">${c.icon}</div>
-      <div class="chief-name">${c.name}</div>
-      <div class="chief-title">${c.title}</div>
-      <div class="chief-desc">${c.desc}</div>
-      <div class="chief-count">Manages ${HOH.departments[i].agents.length} agents</div>
-      ${statusBadge(c.status, c.statusLabel)}
+  row.style.cssText = 'display:flex;gap:12px;flex-wrap:wrap;justify-content:center;';
+  const panelsContainer = document.getElementById('chiefPanels');
+
+  HOH.chiefs.forEach((chief, ci) => {
+    const dept = HOH.departments[ci];
+
+    // Chief card
+    const node = document.createElement('div');
+    node.className = 'chief-node';
+    node.innerHTML = `
+      <div class="chief-card" id="chief-${ci}" onclick="toggleChief(${ci})">
+        <div class="chief-icon">${chief.icon}</div>
+        <div class="chief-name">${chief.name}</div>
+        <div class="chief-dept">${chief.title}</div>
+        <div class="chief-desc">${chief.desc}</div>
+        <div class="chief-reports">${dept.agents.length} agents</div>
+        <span class="chief-chevron">▾</span>
+      </div>
     `;
-    div.addEventListener('click', () => toggleChief(i, div));
-    row.appendChild(div);
+    row.appendChild(node);
+
+    // Panel for this chief — full width below all chiefs
+    const panel = document.createElement('div');
+    panel.id = `chief-panel-${ci}`;
+    panel.className = 'collapsible';
+    panel.style.cssText = 'width:100%;margin-top:8px;';
+    panel.innerHTML = buildChiefPanel(chief, dept, ci);
+    panelsContainer.appendChild(panel);
   });
 }
 
-function toggleChief(idx, el) {
-  const drawer = document.getElementById('chiefDrawer');
-  const allCards = document.querySelectorAll('.chief-card');
-  if (openChief === idx) {
-    drawer.classList.remove('open'); el.classList.remove('open');
-    openChief = null; return;
-  }
-  allCards.forEach(c => c.classList.remove('open'));
-  openChief = idx;
-  el.classList.add('open');
-  const c = HOH.chiefs[idx];
-  drawer.innerHTML = `
-    <div class="drawer-head">
-      <div class="drawer-title">${c.name}</div>
-      <button class="drawer-close" onclick="closeChief()">✕</button>
-    </div>
-    <div class="drawer-body">
-      <div>
-        <div class="d-label">Role</div>
-        <div class="d-text">${c.what}</div>
+function buildChiefPanel(chief, dept, ci) {
+  return `
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="v-line"></div>
+      <!-- Chief detail -->
+      <div class="detail-panel visible" style="max-width:700px;margin-bottom:12px;">
+        <div class="dp-head">
+          <div class="dp-title">${chief.name}</div>
+          <button class="dp-close" onclick="closeChief(${ci})">✕</button>
+        </div>
+        <div class="dp-body">
+          <div>
+            <div class="dp-label">Role</div>
+            <div class="dp-text">${chief.what}</div>
+          </div>
+          <div>
+            <div class="dp-label">Responsibilities</div>
+            <ul class="dp-list">${chief.capabilities.map(c=>`<li>${c}</li>`).join('')}</ul>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="d-label">Key Responsibilities</div>
-        <ul class="d-list">${c.capabilities.map(x=>`<li>${x}</li>`).join('')}</ul>
-      </div>
+      <!-- Agent grid -->
+      <div class="v-line"></div>
+      <div style="font-size:9px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--mid);margin:8px 0 12px;">${dept.name}</div>
+      <div class="dept-agents-grid" id="agents-${ci}" style="max-width:700px;width:100%;"></div>
+      <!-- Agent detail panel -->
+      <div id="agent-detail-${ci}" class="collapsible" style="max-width:700px;width:100%;margin-top:8px;"></div>
     </div>
   `;
-  drawer.classList.add('open');
-  setTimeout(() => drawer.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
 }
 
-function closeChief() {
-  document.getElementById('chiefDrawer').classList.remove('open');
-  document.querySelectorAll('.chief-card').forEach(c=>c.classList.remove('open'));
-  openChief = null;
-}
+function toggleChief(ci) {
+  const card = document.getElementById(`chief-${ci}`);
+  const panel = document.getElementById(`chief-panel-${ci}`);
 
-/* ── Departments ──────────────────────────── */
-const deptColors = ['#2A3D32','#8B4513','#4A3728'];
-let openDrawers = {};
+  if (openChief === ci) {
+    // close
+    card.classList.remove('selected');
+    panel.classList.remove('open');
+    openChief = null;
+    openAgent = null;
+    return;
+  }
 
-function renderDepts() {
-  const container = document.getElementById('departments');
-  HOH.departments.forEach((dept, di) => {
-    const color = deptColors[di];
-    const section = document.createElement('div');
-    section.className = 'dept-section';
-    section.style.animationDelay = `${.3 + di * .08}s`;
+  // close any open chief
+  if (openChief !== null) {
+    document.getElementById(`chief-${openChief}`).classList.remove('selected');
+    document.getElementById(`chief-panel-${openChief}`).classList.remove('open');
+  }
 
-    // connector
-    section.innerHTML = `
-      <div class="dept-connector">
-        <div class="dept-connector-line" style="background:${color};"></div>
-      </div>
-      <div class="dept-header">
-        <span class="dept-badge" style="color:${color};border-color:${color};background:${color}18;">${dept.name.toUpperCase()}</span>
-        <div class="dept-line" style="background:${color};"></div>
-      </div>
-      <div class="agents-grid" id="grid-${dept.id}"></div>
-    `;
-    container.appendChild(section);
+  openChief = ci;
+  card.classList.add('selected');
+  panel.classList.add('open');
 
-    const grid = section.querySelector(`#grid-${dept.id}`);
+  // render agents
+  const dept = HOH.departments[ci];
+  const grid = document.getElementById(`agents-${ci}`);
+  if (!grid.hasChildNodes()) {
     dept.agents.forEach((a, ai) => {
       const card = document.createElement('div');
       card.className = 'agent-card';
-      card.dataset.dept = di;
-      card.dataset.agent = ai;
-      card.style.setProperty('--dept-color', color);
-      card.style.cssText += `--dept-color:${color};`;
-      card.querySelector ? null : null;
+      card.id = `agent-${ci}-${ai}`;
       card.innerHTML = `
         <div class="a-top">
-          <div class="a-icon" style="background:${a.iconBg};">${a.icon}</div>
+          <div class="a-icon" style="background:${a.iconBg}">${a.icon}</div>
           <div>
             <div class="a-name">${a.name}</div>
             <div class="a-role">${a.role}</div>
           </div>
         </div>
         <div class="a-desc">${a.desc}</div>
-        ${statusBadge(a.status, a.statusLabel)}
+        ${badge(a.status, a.statusLabel)}
       `;
-      // bottom accent color
-      card.style.position = 'relative';
-      const accent = document.createElement('style');
-      accent.textContent = `[data-dept="${di}"][data-agent="${ai}"]::after { background: ${color}; }`;
-      document.head.appendChild(accent);
-      card.addEventListener('click', () => toggleAgent(di, ai, card, grid, color));
+      card.addEventListener('click', (e) => { e.stopPropagation(); toggleAgent(ci, ai); });
       grid.appendChild(card);
     });
-  });
+  }
+
+  setTimeout(() => panel.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
 }
 
-function toggleAgent(di, ai, cardEl, grid, color) {
-  const key = `${di}-${ai}`;
-  // find or create drawer
-  let drawer = grid.querySelector(`.drawer[data-key="${key}"]`);
-  const allCards = grid.querySelectorAll('.agent-card');
-  const allDrawers = grid.querySelectorAll('.drawer');
+function closeChief(ci) {
+  document.getElementById(`chief-${ci}`).classList.remove('selected');
+  document.getElementById(`chief-panel-${ci}`).classList.remove('open');
+  openChief = null;
+  openAgent = null;
+}
 
-  if (openDrawers[`dept-${di}`] === key) {
-    drawer.classList.remove('open');
-    cardEl.classList.remove('open');
-    openDrawers[`dept-${di}`] = null;
+/* ── Agents ────────────────────── */
+function toggleAgent(ci, ai) {
+  const detailWrap = document.getElementById(`agent-detail-${ci}`);
+  const allAgentCards = document.getElementById(`agents-${ci}`).querySelectorAll('.agent-card');
+
+  const key = `${ci}-${ai}`;
+
+  if (openAgent === key) {
+    detailWrap.classList.remove('open');
+    allAgentCards.forEach(c => c.classList.remove('selected'));
+    openAgent = null;
     return;
   }
-  allDrawers.forEach(d => d.classList.remove('open'));
-  allCards.forEach(c => c.classList.remove('open'));
-  openDrawers[`dept-${di}`] = key;
-  cardEl.classList.add('open');
 
-  if (!drawer) {
-    drawer = document.createElement('div');
-    drawer.className = 'drawer';
-    drawer.dataset.key = key;
-    grid.appendChild(drawer);
-  }
+  openAgent = key;
+  allAgentCards.forEach(c => c.classList.remove('selected'));
+  document.getElementById(`agent-${ci}-${ai}`).classList.add('selected');
 
-  const a = HOH.departments[di].agents[ai];
-  drawer.innerHTML = `
-    <div class="drawer-head">
-      <div class="drawer-title" style="color:${color};">${a.name}</div>
-      <button class="drawer-close" onclick="this.closest('.drawer').classList.remove('open');document.querySelectorAll('[data-dept=\\'${di}\\']').forEach(c=>c.classList.remove('open'));">✕</button>
-    </div>
-    <div class="drawer-body">
-      <div>
-        <div class="d-label">What It Does</div>
-        <div class="d-text">${a.what}</div>
-        <div class="d-label" style="margin-top:14px;">Claude Project</div>
-        <div class="d-text" style="font-style:italic;font-size:14px;">${a.project}</div>
+  const a = HOH.departments[ci].agents[ai];
+  detailWrap.innerHTML = `
+    <div class="detail-panel visible" style="margin-top:0;">
+      <div class="dp-head">
+        <div class="dp-title">${a.name}</div>
+        <button class="dp-close" onclick="closeAgent(${ci})">✕</button>
       </div>
-      <div>
-        <div class="d-label">Key Capabilities</div>
-        <ul class="d-list">${a.capabilities.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="dp-body">
+        <div>
+          <div class="dp-label">What It Does</div>
+          <div class="dp-text">${a.what}</div>
+          <div class="dp-project">Claude Project: ${a.project}</div>
+        </div>
+        <div>
+          <div class="dp-label">Key Capabilities</div>
+          <ul class="dp-list">${a.capabilities.map(c=>`<li>${c}</li>`).join('')}</ul>
+        </div>
       </div>
     </div>
   `;
-  drawer.classList.add('open');
-  setTimeout(() => drawer.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
+  detailWrap.classList.add('open');
+  setTimeout(() => detailWrap.scrollIntoView({behavior:'smooth',block:'nearest'}), 50);
 }
 
-/* ── Init ─────────────────────────────────── */
+function closeAgent(ci) {
+  document.getElementById(`agent-detail-${ci}`).classList.remove('open');
+  document.getElementById(`agents-${ci}`).querySelectorAll('.agent-card').forEach(c=>c.classList.remove('selected'));
+  openAgent = null;
+}
+
+/* ── Init ──────────────────────── */
 renderChiefs();
-renderDepts();
 </script>
 </body>
 </html>

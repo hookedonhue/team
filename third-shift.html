@@ -3,106 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HoH Studio — Third Shift</title>
+<title>HoH Team — Third Shift</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  body { background: #0D0D0B; color: #E8E4DC; }
-  body::before { opacity: .15; }
+  body { background: #120a0d; color: #ede7df; }
 
-  /* Override nav for dark */
-  nav { background: rgba(13,13,11,.92); border-bottom-color: rgba(197,151,62,.12); }
-  .nav-brand { color: #E8E4DC; }
-  .nav-link { color: rgba(232,228,220,.5); }
-  .nav-link:hover { color: #E8E4DC; background: rgba(197,151,62,.1); }
-  .nav-link.active { color: #E8E4DC; background: rgba(197,151,62,.12); }
-  .dropdown-menu { background: #1A1A18; border-color: rgba(197,151,62,.2); }
-  .dropdown-menu a { color: #E8E4DC; }
-  .dropdown-menu a:hover { background: rgba(197,151,62,.1); }
+  nav { background: rgba(18,10,13,.94); border-bottom-color: rgba(242,112,19,.1); }
+  .nav-brand { color: #ede7df; }
+  .nav-link { color: rgba(237,231,223,.45); }
+  .nav-link:hover { color: #ede7df; background: rgba(242,112,19,.08); }
+  .nav-link.active { color: #ede7df; background: rgba(242,112,19,.12); }
+  .dropdown-menu { background: #1e1014; border-color: rgba(242,112,19,.18); }
+  .dropdown-menu a { color: #ede7df; }
+  .dropdown-menu a:hover { background: rgba(242,112,19,.08); }
+  .live-dot { background: var(--orange); }
+  .nav-live { color: var(--orange); }
 
-  /* Stars */
-  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-  .star { position: absolute; border-radius: 50%; background: rgba(232,228,220,.6); animation: twinkle var(--d) ease-in-out infinite; }
-  @keyframes twinkle { 0%,100% { opacity: var(--o); } 50% { opacity: .1; } }
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star { position: absolute; border-radius: 50%; background: rgba(237,231,223,.5); animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: var(--o); } 50% { opacity: .08; } }
 
-  /* Page */
-  .shift-wrap { position: relative; z-index: 1; padding: 0; min-height: calc(100vh - 50px); display: flex; flex-direction: column; }
+  .shift-wrap { position: relative; z-index: 1; min-height: calc(100vh - 50px); display: flex; flex-direction: column; }
 
-  /* Header bar */
-  .shift-header { display: flex; align-items: center; padding: 20px 32px; border-bottom: 1px solid rgba(197,151,62,.1); flex-wrap: wrap; gap: 20px; }
-
-  .clock-display { font-family: 'DM Sans', sans-serif; font-size: 42px; font-weight: 300; color: #E8E4DC; letter-spacing: -.02em; }
-  .clock-am { font-size: 16px; font-weight: 300; color: rgba(232,228,220,.4); margin-left: 6px; vertical-align: super; }
-
-  .shift-tagline { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(232,228,220,.45); max-width: 220px; line-height: 1.5; }
-
+  /* Header */
+  .shift-header { display: flex; align-items: center; padding: 18px 28px; border-bottom: 1px solid rgba(242,112,19,.1); flex-wrap: wrap; gap: 20px; }
+  .clock-display { font-family: 'DM Sans', sans-serif; font-size: 40px; font-weight: 300; color: #ede7df; letter-spacing: -.02em; }
+  .clock-am { font-size: 15px; font-weight: 300; color: rgba(237,231,223,.35); margin-left: 5px; vertical-align: super; }
+  .shift-tagline { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(237,231,223,.4); max-width: 200px; line-height: 1.5; }
   .shift-stats { display: flex; gap: 28px; margin-left: auto; }
   .stat-item { text-align: center; }
-  .stat-val { font-size: 22px; font-weight: 300; color: var(--gold); font-family: 'DM Sans', sans-serif; }
-  .stat-label { font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(232,228,220,.35); margin-top: 2px; }
+  .stat-val { font-size: 22px; font-weight: 300; color: var(--orange); font-family: 'DM Sans', sans-serif; }
+  .stat-label { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(237,231,223,.3); margin-top: 2px; }
+  .dorian-status { display: flex; align-items: center; gap: 10px; background: rgba(242,112,19,.07); border: 1px solid rgba(242,112,19,.14); border-radius: 24px; padding: 7px 14px; }
+  .dorian-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 11px; font-weight: 600; color: #fff; }
+  .dorian-info { font-size: 11px; color: rgba(237,231,223,.6); }
+  .dorian-info strong { display: block; color: #ede7df; font-size: 12px; font-weight: 500; }
 
-  .dorian-status { display: flex; align-items: center; gap: 10px; background: rgba(197,151,62,.08); border: 1px solid rgba(197,151,62,.15); border-radius: 24px; padding: 8px 16px; }
-  .dorian-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 600; color: var(--ink); }
-  .dorian-info { font-size: 12px; color: rgba(232,228,220,.7); }
-  .dorian-info strong { display: block; color: #E8E4DC; font-size: 13px; font-weight: 500; }
-
-  /* Timeline scrubber */
-  .timeline-bar { padding: 14px 32px; border-bottom: 1px solid rgba(197,151,62,.08); display: flex; align-items: center; gap: 0; position: relative; overflow-x: auto; }
-  .timeline-track { flex: 1; height: 2px; background: rgba(197,151,62,.12); border-radius: 1px; position: relative; min-width: 400px; }
-  .timeline-progress { height: 100%; background: linear-gradient(to right, var(--gold), rgba(197,151,62,.3)); border-radius: 1px; transition: width .1s linear; }
-  .timeline-labels { display: flex; justify-content: space-between; position: absolute; top: 10px; left: 0; right: 0; }
-  .tl-label { font-size: 9px; color: rgba(232,228,220,.25); letter-spacing: .06em; }
-  .timeline-wrap { flex: 1; min-width: 400px; position: relative; }
+  /* Timeline */
+  .timeline-bar { padding: 12px 28px; border-bottom: 1px solid rgba(242,112,19,.07); }
+  .timeline-wrap { position: relative; }
+  .timeline-track { height: 2px; background: rgba(242,112,19,.1); border-radius: 1px; }
+  .timeline-progress { height: 100%; background: linear-gradient(to right, var(--orange), rgba(242,112,19,.2)); border-radius: 1px; transition: width .1s linear; }
+  .tl-labels { display: flex; justify-content: space-between; margin-top: 6px; }
+  .tl-label { font-size: 9px; color: rgba(237,231,223,.22); letter-spacing: .04em; }
 
   /* Controls */
-  .controls { display: flex; align-items: center; gap: 8px; padding: 14px 32px; border-bottom: 1px solid rgba(197,151,62,.08); flex-wrap: wrap; }
-  .ctrl-btn { background: rgba(197,151,62,.1); border: 1px solid rgba(197,151,62,.2); border-radius: 4px; color: rgba(232,228,220,.8); font-size: 11px; font-weight: 500; padding: 6px 16px; cursor: pointer; transition: all .18s ease; letter-spacing: .06em; }
-  .ctrl-btn:hover { background: rgba(197,151,62,.2); color: #E8E4DC; }
-  .ctrl-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-  .ctrl-speed { font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,228,220,.3); margin-left: 8px; }
+  .controls { display: flex; align-items: center; gap: 8px; padding: 12px 28px; border-bottom: 1px solid rgba(242,112,19,.07); flex-wrap: wrap; }
+  .ctrl-btn { background: rgba(242,112,19,.08); border: 1px solid rgba(242,112,19,.18); border-radius: 4px; color: rgba(237,231,223,.75); font-size: 11px; font-weight: 500; padding: 5px 14px; cursor: pointer; transition: all .18s ease; letter-spacing: .05em; }
+  .ctrl-btn:hover { background: rgba(242,112,19,.18); color: #ede7df; }
+  .ctrl-btn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+  .ctrl-hint { font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: rgba(237,231,223,.25); margin-left: 6px; }
 
   /* Feed */
-  .shift-feed { flex: 1; padding: 24px 32px 40px; max-width: 760px; width: 100%; margin: 0 auto; }
+  .shift-feed { flex: 1; padding: 24px 28px 40px; max-width: 740px; width: 100%; margin: 0 auto; }
 
-  .shift-intro { text-align: center; padding: 60px 20px; }
-  .shift-moon { font-size: 48px; margin-bottom: 20px; animation: float 4s ease-in-out infinite; }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .shift-intro-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: rgba(232,228,220,.7); margin-bottom: 8px; }
-  .shift-intro-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(232,228,220,.35); }
+  .shift-intro { text-align: center; padding: 56px 20px; }
+  .shift-moon { font-size: 46px; margin-bottom: 18px; animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .shift-intro-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 400; color: rgba(237,231,223,.65); margin-bottom: 8px; }
+  .shift-intro-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(237,231,223,.32); }
 
   /* Task card */
-  .task-card { background: rgba(232,228,220,.04); border: 1px solid rgba(197,151,62,.12); border-radius: var(--r); padding: 20px 24px; margin-bottom: 14px; animation: slideIn .4s ease both; display: none; }
+  .task-card { background: rgba(237,231,223,.03); border: 1px solid rgba(242,112,19,.1); border-radius: var(--r); padding: 18px 22px; margin-bottom: 12px; display: none; animation: slideIn .4s ease both; }
   .task-card.visible { display: block; }
-  @keyframes slideIn { from { opacity:0; transform:translateX(-12px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes slideIn { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:translateX(0); } }
 
-  .task-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
-  .task-time { font-size: 11px; color: rgba(232,228,220,.3); font-weight: 300; white-space: nowrap; padding-top: 2px; min-width: 52px; }
-  .task-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(197,151,62,.1); border: 1px solid rgba(197,151,62,.2); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-  .task-agent { font-size: 13px; font-weight: 500; color: #E8E4DC; margin-bottom: 3px; }
-  .task-dept-badge { font-size: 8.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; background: rgba(197,151,62,.1); color: var(--gold); border: 1px solid rgba(197,151,62,.18); }
-  .task-action { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(232,228,220,.5); margin-top: 4px; }
+  .task-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .task-time { font-size: 11px; color: rgba(237,231,223,.28); font-weight: 300; white-space: nowrap; padding-top: 2px; min-width: 50px; }
+  .task-icon { width: 30px; height: 30px; border-radius: 50%; background: rgba(242,112,19,.1); border: 1px solid rgba(242,112,19,.18); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .task-agent { font-size: 13px; font-weight: 500; color: #ede7df; margin-bottom: 2px; }
+  .task-dept-badge { font-size: 8px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; background: rgba(242,112,19,.1); color: var(--orange); border: 1px solid rgba(242,112,19,.16); }
+  .task-action { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(237,231,223,.45); margin-top: 3px; }
 
-  .task-output { background: rgba(42,61,50,.2); border-left: 2px solid var(--forest); padding: 10px 14px; border-radius: 0 var(--r) var(--r) 0; margin: 10px 0 10px 52px; }
-  .task-output-label { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(42,200,100,.6); margin-bottom: 4px; }
-  .task-output-text { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(232,228,220,.7); line-height: 1.5; }
+  .task-output { background: rgba(44,19,27,.3); border-left: 2px solid rgba(242,112,19,.4); padding: 9px 13px; border-radius: 0 var(--r) var(--r) 0; margin: 9px 0 9px 50px; }
+  .task-output-label { font-size: 8.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(242,112,19,.65); margin-bottom: 3px; }
+  .task-output-text { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; color: rgba(237,231,223,.65); line-height: 1.5; }
 
-  .task-meta { display: flex; gap: 16px; margin-left: 52px; margin-top: 4px; }
-  .task-meta-item { font-size: 10px; color: rgba(232,228,220,.3); }
-  .task-meta-item span { color: var(--gold); font-weight: 500; }
+  .task-meta { display: flex; gap: 14px; margin-left: 50px; margin-top: 3px; }
+  .task-meta-item { font-size: 10px; color: rgba(237,231,223,.28); }
+  .task-meta-item span { color: var(--orange); font-weight: 500; }
 
-  /* Total bar */
-  .total-bar { background: rgba(197,151,62,.06); border: 1px solid rgba(197,151,62,.12); border-radius: var(--r); padding: 16px 20px; margin-bottom: 20px; display: none; flex-wrap: wrap; gap: 24px; align-items: center; }
+  /* Total */
+  .total-bar { background: rgba(242,112,19,.05); border: 1px solid rgba(242,112,19,.12); border-radius: var(--r); padding: 14px 18px; margin-bottom: 18px; display: none; flex-wrap: wrap; gap: 20px; align-items: center; }
   .total-bar.visible { display: flex; }
-  .total-item { text-align: center; }
-  .total-val { font-size: 24px; font-weight: 300; color: var(--gold); font-family: 'DM Sans', sans-serif; }
-  .total-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(232,228,220,.35); margin-top: 2px; }
-  .total-divider { width: 1px; height: 36px; background: rgba(197,151,62,.15); }
-  .total-message { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(232,228,220,.5); flex: 1; }
+  .total-val { font-size: 22px; font-weight: 300; color: var(--orange); font-family: 'DM Sans', sans-serif; }
+  .total-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(237,231,223,.3); margin-top: 2px; }
+  .total-divider { width: 1px; height: 32px; background: rgba(242,112,19,.12); }
+  .total-msg { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(237,231,223,.45); flex: 1; }
 
-  footer { background: rgba(13,13,11,.8); border-top-color: rgba(197,151,62,.1); }
-  footer .footer-brand, footer .footer-tagline { color: rgba(232,228,220,.3); }
+  footer { background: rgba(18,10,13,.8); border-top-color: rgba(242,112,19,.1); }
+  footer .footer-brand, footer .footer-tagline { color: rgba(237,231,223,.3); }
 </style>
 </head>
 <body>
@@ -118,7 +111,7 @@
     <div class="nav-dropdown">
       <button class="nav-link dropdown-toggle">Archive ▾</button>
       <div class="dropdown-menu">
-        <a href="ecosystem.html">By Department</a>
+        <a href="roster.html">Full Roster</a>
         <a href="data-flow.html">Data Flow</a>
       </div>
     </div>
@@ -129,10 +122,9 @@
 <div class="page">
 <div class="shift-wrap">
 
-  <!-- Header -->
   <div class="shift-header">
     <div>
-      <div class="clock-display" id="clock">12<span style="opacity:.4">:</span>00<span class="clock-am">AM</span></div>
+      <div class="clock-display" id="clock">12<span style="opacity:.35">:</span>00<span class="clock-am">AM</span></div>
       <div class="shift-tagline">The third shift begins. AI collaborators are clocking in.</div>
     </div>
     <div class="shift-stats">
@@ -142,20 +134,14 @@
     </div>
     <div class="dorian-status">
       <div class="dorian-avatar">DD</div>
-      <div class="dorian-info">
-        <strong>Dorian — Sleeping 😴</strong>
-        AI collaborators are handling it
-      </div>
+      <div class="dorian-info"><strong>Dorian — Sleeping 😴</strong>AI collaborators handling it</div>
     </div>
   </div>
 
-  <!-- Timeline -->
   <div class="timeline-bar">
     <div class="timeline-wrap">
-      <div class="timeline-track">
-        <div class="timeline-progress" id="timelineProgress" style="width:0%"></div>
-      </div>
-      <div class="timeline-labels">
+      <div class="timeline-track"><div class="timeline-progress" id="progress" style="width:0%"></div></div>
+      <div class="tl-labels">
         <span class="tl-label">12:00 AM</span>
         <span class="tl-label">2:00 AM</span>
         <span class="tl-label">4:00 AM</span>
@@ -165,32 +151,29 @@
     </div>
   </div>
 
-  <!-- Controls -->
   <div class="controls">
     <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">▶ Play</button>
-    <button class="ctrl-btn active" id="speed1" onclick="setSpeed(1, this)">1×</button>
-    <button class="ctrl-btn" id="speed2" onclick="setSpeed(3, this)">3×</button>
-    <button class="ctrl-btn" id="speed4" onclick="setSpeed(6, this)">6×</button>
+    <button class="ctrl-btn active" id="s1" onclick="setSpeed(1,this)">1×</button>
+    <button class="ctrl-btn" id="s3" onclick="setSpeed(3,this)">3×</button>
+    <button class="ctrl-btn" id="s6" onclick="setSpeed(6,this)">6×</button>
     <button class="ctrl-btn" onclick="resetShift()">↩ Reset</button>
-    <span class="ctrl-speed">Scrub timeline to navigate</span>
+    <span class="ctrl-hint">Scrub timeline to navigate</span>
   </div>
 
-  <!-- Feed -->
   <div class="shift-feed">
     <div class="total-bar" id="totalBar">
-      <div class="total-item"><div class="total-val" id="total-tasks">0</div><div class="total-label">Tasks Complete</div></div>
+      <div><div class="total-val" id="tt">0</div><div class="total-label">Tasks</div></div>
       <div class="total-divider"></div>
-      <div class="total-item"><div class="total-val" id="total-saved">0h</div><div class="total-label">Hours Saved</div></div>
+      <div><div class="total-val" id="ts">0h</div><div class="total-label">Hours Saved</div></div>
       <div class="total-divider"></div>
-      <div class="total-item"><div class="total-val" id="total-value">$0</div><div class="total-label">Value Created</div></div>
-      <div class="total-message">While Dorian slept, the studio kept working.</div>
+      <div><div class="total-val" id="tv">$0</div><div class="total-label">Value Created</div></div>
+      <div class="total-msg">While Dorian slept, the team kept working.</div>
     </div>
-
     <div id="feed">
-      <div class="shift-intro" id="shiftIntro">
+      <div class="shift-intro" id="intro">
         <div class="shift-moon">🌙</div>
         <div class="shift-intro-title">The third shift is about to begin.</div>
-        <div class="shift-intro-sub">Your team sleeps. The AI collaborators don't.<br>Press Play or scrub the timeline to watch the night unfold.</div>
+        <div class="shift-intro-sub">Your team sleeps. The AI collaborators don't.<br>Press Play to watch the night unfold.</div>
       </div>
     </div>
   </div>
@@ -200,162 +183,81 @@
 
 <footer>
   <span class="footer-brand">Hooked on Hue</span>
-  <span class="footer-tagline">Third Shift · The Studio Never Stops</span>
+  <span class="footer-tagline">Third Shift · The Team Never Stops</span>
 </footer>
 
 <script src="data.js"></script>
 <script>
-/* ── Stars ─────────────────────────── */
+// Stars
 (function(){
   const c = document.getElementById('stars');
-  for(let i=0;i<120;i++){
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random()*2+.5;
-    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.8+.2};--d:${Math.random()*4+2}s;animation-delay:${Math.random()*4}s;`;
+  for(let i=0;i<110;i++){
+    const s=document.createElement('div'); s.className='star';
+    const sz=Math.random()*1.8+.4;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.7+.2};--d:${Math.random()*4+2}s;animation-delay:${Math.random()*4}s;`;
     c.appendChild(s);
   }
 })();
 
-/* ── Timeline engine ───────────────── */
-const TOTAL_MINUTES = 9 * 60; // midnight to 9am
-let currentMinute = 0;
-let playing = false;
-let speed = 1;
-let timer = null;
-let shownCards = new Set();
+const TOTAL=9*60; let cur=0,playing=false,speed=1,timer=null,shown=new Set();
+const ICONS={'Intelligence Analyst':'🔭','SEO Auditor':'🔍','Revenue Tracker':'📊','Reader Experience Manager':'💬','Content Multiplier':'⚡','Executive Assistant':'🗝️'};
 
-const ICONS = { 'Intelligence Analyst':'🔭', 'SEO Auditor':'🔍', 'Revenue Tracker':'📊', 'Reader Experience Manager':'💬', 'Content Multiplier':'⚡', 'Executive Assistant':'🗝️' };
+function minToStr(m){ const h=Math.floor(m/60)%12||12,mn=String(m%60).padStart(2,'0'); return `${h}:${mn} AM`; }
+function parseMin(s){ const[hm]=s.split(' ');const[h,m]=hm.split(':').map(Number);return (h%12)*60+m; }
 
-function minuteToTime(min) {
-  const h = Math.floor(min / 60) % 12 || 12;
-  const m = String(min % 60).padStart(2, '0');
-  return `${h}:${m} AM`;
-}
+function updateClock(){ document.getElementById('clock').innerHTML=minToStr(cur).replace(' AM','')+'<span class="clock-am">AM</span>'; document.getElementById('progress').style.width=(cur/TOTAL*100)+'%'; }
 
-function parseTime(str) {
-  const [hm, _] = str.split(' ');
-  const [h, m] = hm.split(':').map(Number);
-  return (h % 12) * 60 + m;
-}
-
-function updateClock() {
-  document.getElementById('clock').innerHTML = minuteToTime(currentMinute).replace(' AM','') + '<span class="clock-am">AM</span>';
-  document.getElementById('timelineProgress').style.width = (currentMinute / TOTAL_MINUTES * 100) + '%';
-}
-
-function updateStats() {
-  const visible = HOH.thirdShift.filter((_,i) => shownCards.has(i));
-  const tasks = visible.length;
-  const saved = visible.reduce((a,t) => a + parseFloat(t.saved), 0);
-  const value = visible.reduce((a,t) => a + parseInt(t.value.replace('$','')), 0);
-  document.getElementById('stat-tasks').textContent = tasks;
-  document.getElementById('stat-saved').textContent = saved.toFixed(1) + 'h';
-  document.getElementById('stat-value').textContent = '$' + value;
-  if (tasks === HOH.thirdShift.length) {
-    document.getElementById('totalBar').classList.add('visible');
-    document.getElementById('total-tasks').textContent = tasks;
-    document.getElementById('total-saved').textContent = saved.toFixed(1) + 'h';
-    document.getElementById('total-value').textContent = '$' + value;
+function updateStats(){
+  const v=HOH.thirdShift.filter((_,i)=>shown.has(i));
+  const tasks=v.length,saved=v.reduce((a,t)=>a+parseFloat(t.saved),0),value=v.reduce((a,t)=>a+parseInt(t.value.replace('$','')),0);
+  document.getElementById('stat-tasks').textContent=tasks;
+  document.getElementById('stat-saved').textContent=saved.toFixed(1)+'h';
+  document.getElementById('stat-value').textContent='$'+value;
+  if(tasks===HOH.thirdShift.length){
+    const b=document.getElementById('totalBar'); b.classList.add('visible');
+    document.getElementById('tt').textContent=tasks;
+    document.getElementById('ts').textContent=saved.toFixed(1)+'h';
+    document.getElementById('tv').textContent='$'+value;
   }
 }
 
-function checkCards() {
-  HOH.thirdShift.forEach((task, i) => {
-    const taskMin = parseTime(task.time);
-    if (currentMinute >= taskMin && !shownCards.has(i)) {
-      shownCards.add(i);
-      showCard(task, i);
-    }
-  });
+function showCard(task,idx){
+  const intro=document.getElementById('intro'); if(intro) intro.style.display='none';
+  const feed=document.getElementById('feed');
+  const card=document.createElement('div'); card.className='task-card visible'; card.id=`tc${idx}`;
+  card.innerHTML=`
+    <div class="task-top">
+      <div class="task-time">${task.time}</div>
+      <div class="task-icon">${ICONS[task.agent]||'🤖'}</div>
+      <div><div class="task-agent">${task.agent}</div><span class="task-dept-badge">${task.dept}</span><div class="task-action">${task.task}</div></div>
+    </div>
+    <div class="task-output"><div class="task-output-label">→ Output</div><div class="task-output-text">${task.output}</div></div>
+    <div class="task-meta"><div class="task-meta-item">⏱ <span>${task.saved}</span> saved</div><div class="task-meta-item">💰 <span>${task.value}</span> value</div></div>
+  `;
+  const ex=feed.querySelectorAll('.task-card');
+  let ins=false;
+  for(const e of ex){ if(parseInt(e.id.slice(2))>idx){feed.insertBefore(card,e);ins=true;break;} }
+  if(!ins) feed.appendChild(card);
+}
+
+function tick(){
+  if(cur>=TOTAL){pause();return;}
+  cur=Math.min(cur+speed,TOTAL); updateClock();
+  HOH.thirdShift.forEach((t,i)=>{ if(cur>=parseMin(t.time)&&!shown.has(i)){shown.add(i);showCard(t,i);} });
   updateStats();
 }
 
-function showCard(task, idx) {
-  const intro = document.getElementById('shiftIntro');
-  if (intro) intro.style.display = 'none';
-
-  const feed = document.getElementById('feed');
-  const card = document.createElement('div');
-  card.className = 'task-card visible';
-  card.id = `task-${idx}`;
-  card.innerHTML = `
-    <div class="task-top">
-      <div class="task-time">${task.time}</div>
-      <div class="task-icon">${ICONS[task.agent] || '🤖'}</div>
-      <div>
-        <div class="task-agent">${task.agent}</div>
-        <span class="task-dept-badge">${task.dept}</span>
-        <div class="task-action">${task.task}</div>
-      </div>
-    </div>
-    <div class="task-output">
-      <div class="task-output-label">Output</div>
-      <div class="task-output-text">${task.output}</div>
-    </div>
-    <div class="task-meta">
-      <div class="task-meta-item">⏱ <span>${task.saved}</span> saved</div>
-      <div class="task-meta-item">💰 <span>${task.value}</span> value</div>
-    </div>
-  `;
-  // insert in time order
-  const existing = feed.querySelectorAll('.task-card');
-  let inserted = false;
-  for (const ex of existing) {
-    if (parseInt(ex.id.split('-')[1]) > idx) {
-      feed.insertBefore(card, ex);
-      inserted = true; break;
-    }
-  }
-  if (!inserted) feed.appendChild(card);
-}
-
-function tick() {
-  if (currentMinute >= TOTAL_MINUTES) { pause(); return; }
-  currentMinute = Math.min(currentMinute + speed, TOTAL_MINUTES);
-  updateClock();
-  checkCards();
-}
-
-function togglePlay() {
-  playing ? pause() : play();
-}
-
-function play() {
-  playing = true;
-  document.getElementById('playBtn').textContent = '⏸ Pause';
-  timer = setInterval(tick, 100);
-}
-
-function pause() {
-  playing = false;
-  document.getElementById('playBtn').textContent = '▶ Play';
-  clearInterval(timer);
-}
-
-function setSpeed(s, btn) {
-  speed = s;
-  document.querySelectorAll('.ctrl-btn').forEach(b => {
-    if (['speed1','speed2','speed4'].includes(b.id)) b.classList.remove('active');
-  });
-  btn.classList.add('active');
-}
-
-function resetShift() {
-  pause();
-  currentMinute = 0;
-  shownCards.clear();
-  updateClock();
-  document.getElementById('stat-tasks').textContent = '0';
-  document.getElementById('stat-saved').textContent = '0.0h';
-  document.getElementById('stat-value').textContent = '$0';
+function togglePlay(){ playing?pause():play(); }
+function play(){ playing=true;document.getElementById('playBtn').textContent='⏸ Pause';timer=setInterval(tick,100); }
+function pause(){ playing=false;document.getElementById('playBtn').textContent='▶ Play';clearInterval(timer); }
+function setSpeed(s,btn){ speed=s;['s1','s3','s6'].forEach(id=>document.getElementById(id).classList.remove('active'));btn.classList.add('active'); }
+function resetShift(){
+  pause();cur=0;shown.clear();updateClock();
+  ['stat-tasks','stat-saved','stat-value'].forEach((id,i)=>document.getElementById(id).textContent=['0','0.0h','$0'][i]);
   document.getElementById('totalBar').classList.remove('visible');
-  const feed = document.getElementById('feed');
-  feed.querySelectorAll('.task-card').forEach(c => c.remove());
-  const intro = document.getElementById('shiftIntro');
-  if (intro) intro.style.display = '';
+  document.getElementById('feed').querySelectorAll('.task-card').forEach(c=>c.remove());
+  const intro=document.getElementById('intro'); if(intro) intro.style.display='';
 }
-
 updateClock();
 </script>
 </body>
