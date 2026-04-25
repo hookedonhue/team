@@ -6,322 +6,335 @@
 <title>Hooked on Hue — AI Creative Team</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
-  .org-wrap { max-width: 1040px; margin: 0 auto; padding: 52px 24px 80px; }
+/* ── Hero ──────────────────────────────────── */
+.hero {
+  position: relative; overflow: hidden;
+  background: var(--warm-wash);
+  padding: 80px 40px 72px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
 
-  /* ── Masthead ── */
-  .masthead {
-    text-align: center; margin-bottom: 52px;
-    animation: fadeUp .6s ease both;
-  }
-  .eyebrow {
-    display: inline-block;
-    font-size: 10px; font-weight: 600; letter-spacing: .3em;
-    text-transform: uppercase; color: var(--orange);
-    margin-bottom: 14px;
-  }
-  .masthead h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 400; line-height: 1.1; color: var(--ink);
-  }
-  .masthead h1 em { font-style: italic; color: var(--orange); }
-  .masthead-rule {
-    width: 36px; height: 2px; background: var(--orange);
-    margin: 18px auto; opacity: .7;
-  }
-  .masthead-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 17px; font-style: italic;
-    color: var(--ink-light); letter-spacing: .01em;
-  }
+/* Grain texture */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='.028'/%3E%3C/svg%3E");
+  opacity: .6;
+}
 
-  /* ── Tree layout ── */
-  .tree { display: flex; flex-direction: column; align-items: center; }
+/* Decorative large H watermark */
+.hero::after {
+  content: 'H';
+  position: absolute; right: -2%; top: -10%;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(280px, 35vw, 480px);
+  font-weight: 700; font-style: italic;
+  color: var(--orange); opacity: .04;
+  line-height: 1; pointer-events: none; z-index: 0;
+  user-select: none;
+}
 
-  /* ── Founder node ── */
-  .founder-node { animation: fadeUp .6s .06s ease both; }
-  .founder-card {
-    display: inline-flex; align-items: center; gap: 18px;
-    background: var(--white); border: 1.5px solid var(--border);
-    border-left: 4px solid var(--orange);
-    border-radius: var(--r); padding: 20px 28px;
-    cursor: pointer; transition: box-shadow .2s ease, border-color .2s ease;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-  }
-  .founder-card:hover { box-shadow: var(--shadow-md); border-color: var(--orange); }
-  .founder-card.open { box-shadow: var(--shadow-md); }
+.hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
 
-  .f-photo {
-    width: 54px; height: 54px; border-radius: 50%;
-    overflow: hidden; flex-shrink: 0;
-    border: 2px solid var(--orange);
-  }
-  .f-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .32em;
+  text-transform: uppercase; color: var(--orange);
+  margin-bottom: 22px; animation: fadeUp .7s ease both;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block;
+  width: 28px; height: 1px; background: var(--orange); opacity: .5;
+}
 
-  .f-info { flex: 1; }
-  .f-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 2px;
-  }
-  .f-title {
-    font-size: 10px; font-weight: 500; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--ink-light); margin-bottom: 10px;
-  }
-  .f-pills { display: flex; gap: 7px; flex-wrap: wrap; }
-  .f-pill {
-    background: var(--orange-light); border: 1px solid var(--orange-mid);
-    border-radius: 20px; padding: 3px 10px;
-    font-size: 9.5px; font-weight: 600; color: var(--orange);
-    letter-spacing: .05em;
-  }
-  .f-chevron {
-    font-size: 12px; color: var(--ink-light);
-    transition: transform .25s ease; flex-shrink: 0;
-  }
-  .founder-card.open .f-chevron { transform: rotate(180deg); }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 400; line-height: .98;
+  color: var(--ink); letter-spacing: -.02em;
+  animation: fadeUp .7s .08s ease both;
+}
+.hero-title em {
+  font-style: italic; color: var(--orange);
+  display: block;
+}
 
-  /* ── Founder detail panel ── */
-  .founder-detail {
-    display: none; max-width: 600px; width: 100%;
-    background: var(--off-white); border: 1px solid var(--border);
-    border-top: 3px solid var(--orange);
-    border-radius: 0 0 var(--r) var(--r);
-    padding: 22px 28px; margin-top: -1px;
-    animation: panelIn .22s ease;
-  }
-  .founder-detail.open { display: block; }
-  .fd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 500px) { .fd-grid { grid-template-columns: 1fr; } }
+.hero-rule {
+  width: 44px; height: 2px; background: var(--orange);
+  margin: 26px auto; opacity: .7;
+  animation: fadeUp .7s .16s ease both;
+}
 
-  /* ── Connector lines ── */
-  .v-connector {
-    width: 1px; height: 28px; background: var(--border-mid); margin: 0 auto;
-  }
-  .h-line-wrap {
-    display: flex; align-items: flex-start; justify-content: center;
-    width: 100%; position: relative;
-  }
-  .h-line {
-    position: absolute; top: 0; height: 1px;
-    background: var(--border-mid);
-  }
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px, 2vw, 19px); font-style: italic; font-weight: 300;
+  color: var(--ink-mid); max-width: 560px; margin: 0 auto;
+  line-height: 1.6; letter-spacing: .01em;
+  animation: fadeUp .7s .24s ease both;
+}
 
-  /* ── Level 1 row: EA + Chiefs ── */
-  .level1-row {
-    display: flex; align-items: flex-start;
-    justify-content: center; gap: 12px;
-    width: 100%; max-width: 1040px;
-    flex-wrap: wrap;
-    animation: fadeUp .6s .14s ease both;
-  }
+/* ── Org wrap ────────────────────────────── */
+.org-wrap { max-width: 1100px; margin: 0 auto; padding: 56px 40px 80px; }
 
-  /* ── EA card ── */
-  .ea-node { display: flex; flex-direction: column; align-items: center; min-width: 200px; max-width: 220px; }
-  .ea-v { width: 1px; height: 28px; background: var(--border-mid); }
+/* ── Founder + CoS row ────────────────────── */
+.founder-row {
+  display: flex; align-items: flex-start;
+  justify-content: center; gap: 0;
+  margin-bottom: 0;
+  animation: fadeUp .65s .1s ease both;
+}
 
-  .ea-card {
-    width: 100%; background: var(--white);
-    border: 1.5px solid var(--border); border-top: 3px solid var(--orange);
-    border-radius: var(--r); padding: 16px 18px;
-    cursor: pointer; transition: all .18s ease;
-    position: relative;
-  }
-  .ea-card:hover { box-shadow: var(--shadow-sm); border-color: var(--orange); }
-  .ea-card.open { box-shadow: var(--shadow-sm); border-color: var(--orange); }
+/* Founder card */
+.founder-card {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--r); padding: 22px 28px;
+  cursor: pointer; transition: all .2s ease;
+  box-shadow: var(--shadow-sm);
+  position: relative; z-index: 2;
+}
+.founder-card:hover { box-shadow: var(--shadow-md); }
+.founder-card.open { box-shadow: var(--shadow-md); border-color: var(--orange); }
 
-  .ea-label {
-    font-size: 8.5px; font-weight: 700; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--orange); margin-bottom: 8px;
-  }
-  .ea-icon { font-size: 18px; margin-bottom: 7px; }
-  .ea-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 5px;
-  }
-  .ea-desc {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px; line-height: 1.55; color: var(--ink-mid);
-  }
+.f-photo {
+  width: 58px; height: 58px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0;
+  border: 2.5px solid var(--orange);
+  box-shadow: 0 0 0 4px var(--orange-lite);
+}
+.f-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 
-  /* EA detail */
-  .ea-detail {
-    display: none; width: 100%;
-    background: var(--off-white); border: 1px solid var(--border);
-    border-top: none; border-radius: 0 0 var(--r) var(--r);
-    padding: 14px 18px; animation: panelIn .2s ease;
-  }
-  .ea-detail.open { display: block; }
+.f-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 600; color: var(--ink); margin-bottom: 2px;
+}
+.f-title {
+  font-size: 9.5px; font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink-light); margin-bottom: 10px;
+}
+.f-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+.f-pill {
+  background: var(--orange-lite); border: 1px solid var(--orange-mid);
+  border-radius: 20px; padding: 3px 10px;
+  font-size: 9.5px; font-weight: 700; color: var(--orange);
+}
+.f-chevron {
+  font-size: 11px; color: var(--ink-light);
+  transition: transform .22s ease; flex-shrink: 0; margin-left: 8px;
+}
+.founder-card.open .f-chevron { transform: rotate(180deg); }
 
-  /* ── Chief cards ── */
-  .chiefs-group { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 600px; }
-  @media (max-width: 860px) { .chiefs-group { min-width: 280px; } }
+/* CoS connector H-bridge */
+.cos-bridge {
+  display: flex; align-items: flex-start;
+  position: relative; flex-shrink: 0;
+}
+.cos-h-line {
+  width: 36px; height: 1.5px;
+  background: var(--orange); margin-top: 52px; /* align with center of card */
+  opacity: .45;
+}
 
-  .chiefs-v { width: 1px; height: 28px; background: var(--border-mid); }
-  .chiefs-label {
-    font-size: 9px; font-weight: 600; letter-spacing: .26em;
-    text-transform: uppercase; color: var(--ink-light);
-    margin-bottom: 12px; text-align: center;
-  }
-  .chiefs-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%; }
+/* CoS card */
+.cos-node { display: flex; flex-direction: column; }
+.cos-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-top: 3px solid var(--orange);
+  border-radius: var(--r); padding: 14px 18px;
+  cursor: pointer; transition: all .18s ease;
+  width: 200px; position: relative;
+}
+.cos-card:hover { box-shadow: var(--shadow-sm); border-color: var(--orange); }
+.cos-card.open { box-shadow: var(--shadow-sm); border-color: var(--orange); }
 
-  .chief-node { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 175px; max-width: 220px; }
-  .chief-v { width: 1px; height: 16px; background: var(--border-mid); }
+.cos-tag {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 7px;
+}
+.cos-icon { font-size: 17px; margin-bottom: 6px; }
+.cos-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px;
+}
+.cos-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12.5px; line-height: 1.55; color: var(--ink-mid);
+}
 
-  .chief-card {
-    width: 100%; background: var(--white);
-    border: 1.5px solid var(--border); border-top: 3px solid var(--orange);
-    border-radius: var(--r); padding: 16px 18px;
-    cursor: pointer; transition: all .18s ease;
-  }
-  .chief-card:hover { box-shadow: var(--shadow-sm); border-color: var(--orange); }
-  .chief-card.open { box-shadow: var(--shadow-md); border-color: var(--orange); }
+/* CoS detail */
+.cos-detail {
+  display: none; width: 200px;
+  background: var(--off-white); border: 1.5px solid var(--orange);
+  border-top: none; border-radius: 0 0 var(--r) var(--r);
+  padding: 14px 16px; animation: panelIn .2s ease;
+}
+.cos-detail.open { display: block; }
 
-  .chief-icon {
-    font-size: 13px; color: var(--orange); font-weight: 700;
-    margin-bottom: 8px; display: block;
-  }
-  .chief-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 13.5px; font-weight: 600; color: var(--ink);
-    margin-bottom: 3px; line-height: 1.3;
-  }
-  .chief-dept {
-    font-size: 8.5px; font-weight: 600; letter-spacing: .16em;
-    text-transform: uppercase; color: var(--ink-light); margin-bottom: 8px;
-  }
-  .chief-desc {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 12.5px; line-height: 1.55; color: var(--ink-mid);
-  }
-  .chief-count {
-    font-size: 9px; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--orange); margin-top: 10px;
-    opacity: .8;
-  }
-  .chief-chevron {
-    display: block; text-align: center; font-size: 10px;
-    color: var(--ink-light); margin-top: 8px;
-    transition: transform .22s ease;
-  }
-  .chief-card.open .chief-chevron { transform: rotate(180deg); }
+/* ── Founder detail ────────────────────────── */
+.founder-detail {
+  display: none;
+  background: var(--off-white); border: 1px solid var(--border);
+  border-top: 3px solid var(--orange); border-radius: 0 0 var(--r) var(--r);
+  padding: 22px 28px; margin-top: -1px;
+  animation: panelIn .22s ease;
+  max-width: 600px;
+}
+.founder-detail.open { display: block; }
 
-  /* ── Agent level (under each chief) ── */
-  .agents-section {
-    width: 100%; max-width: 1040px;
-    display: none; animation: panelIn .25s ease;
-  }
-  .agents-section.open { display: block; }
+/* ── V connector from founder down ────────── */
+.v-down { width: 1.5px; height: 32px; background: var(--orange); margin: 0 auto; opacity: .4; }
 
-  /* Chief detail + agents */
-  .chief-detail-panel {
-    background: var(--off-white); border: 1px solid var(--border);
-    border-top: none; border-radius: 0 0 var(--r) var(--r);
-    padding: 20px 24px; margin-bottom: 16px;
-  }
+/* ── Chiefs section ───────────────────────── */
+.chiefs-section { animation: fadeUp .65s .18s ease both; }
 
-  .dept-label-row {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 14px;
-  }
-  .dept-label {
-    font-size: 9px; font-weight: 700; letter-spacing: .26em;
-    text-transform: uppercase; color: var(--orange); white-space: nowrap;
-  }
-  .dept-label-line { flex: 1; height: 1px; background: var(--border); }
+.chiefs-label {
+  text-align: center; margin-bottom: 16px;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--ink-light);
+  display: flex; align-items: center; gap: 16px;
+}
+.chiefs-label::before, .chiefs-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
 
-  .agents-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-  }
-  @media (max-width: 700px) { .agents-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 460px) { .agents-grid { grid-template-columns: 1fr; } }
+/* Horizontal connecting line above chiefs */
+.chiefs-top-line {
+  position: relative; display: flex;
+  justify-content: center; margin-bottom: 0;
+}
+.chiefs-h-bar {
+  position: absolute; top: 0; height: 1.5px;
+  background: var(--orange); opacity: .35;
+}
+.chiefs-drops {
+  display: flex; gap: 10px; justify-content: center;
+  width: 100%;
+}
+.chief-drop {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; max-width: 240px;
+}
+.chief-drop-line { width: 1.5px; height: 20px; background: var(--orange); opacity: .35; }
 
-  /* ── Agent card ── */
-  .agent-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--r); padding: 15px 16px;
-    cursor: pointer; transition: all .16s ease;
-    position: relative;
-  }
-  .agent-card::after {
-    content: ''; position: absolute;
-    bottom: 0; left: 0; right: 0; height: 2px;
-    background: var(--orange);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .2s ease;
-  }
-  .agent-card:hover { border-color: var(--orange); box-shadow: var(--shadow-xs); }
-  .agent-card:hover::after { transform: scaleX(1); }
-  .agent-card.open { border-color: var(--orange); box-shadow: var(--shadow-xs); }
-  .agent-card.open::after { transform: scaleX(1); }
+/* Chief card */
+.chief-card {
+  width: 100%; background: var(--white);
+  border: 1.5px solid var(--border); border-top: 3px solid var(--orange);
+  border-radius: var(--r); padding: 18px 20px;
+  cursor: pointer; transition: all .18s ease;
+  position: relative;
+}
+.chief-card:hover { box-shadow: var(--shadow-sm); border-color: var(--orange); }
+.chief-card.open { box-shadow: var(--shadow-md); border-color: var(--orange); }
 
-  .a-top { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 7px; }
-  .a-icon {
-    width: 30px; height: 30px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; flex-shrink: 0; border: 1px solid var(--border);
-  }
-  .a-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 12.5px; font-weight: 600; color: var(--ink);
-    line-height: 1.25; margin-bottom: 2px;
-  }
-  .a-role {
-    font-size: 8.5px; font-weight: 600; letter-spacing: .13em;
-    text-transform: uppercase; color: var(--orange);
-  }
-  .a-desc {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 12.5px; line-height: 1.55; color: var(--ink-mid);
-  }
+.chief-icon {
+  font-size: 14px; color: var(--orange); font-weight: 700;
+  margin-bottom: 10px; display: block;
+}
+.chief-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  margin-bottom: 3px; line-height: 1.3;
+}
+.chief-dept {
+  font-size: 8.5px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-light); margin-bottom: 8px;
+}
+.chief-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; line-height: 1.55; color: var(--ink-mid);
+}
+.chief-count {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--orange); margin-top: 10px; opacity: .85;
+}
+.chief-chevron {
+  display: block; text-align: center; font-size: 10px;
+  color: var(--ink-light); margin-top: 8px;
+  transition: transform .2s ease;
+}
+.chief-card.open .chief-chevron { transform: rotate(180deg); }
 
-  /* ── Agent detail drawer ── */
-  .agent-detail {
-    display: none; background: var(--off-white);
-    border: 1px solid var(--border); border-top: none;
-    border-radius: 0 0 var(--r) var(--r);
-    padding: 16px 18px; margin-top: -1px;
-    grid-column: 1 / -1; animation: panelIn .2s ease;
-  }
-  .agent-detail.open { display: block; }
+/* ── Agent section ────────────────────────── */
+.agents-section {
+  display: none; animation: scaleIn .28s ease;
+  margin-top: 0;
+}
+.agents-section.open { display: block; }
 
-  /* ── Shared detail styles ── */
-  .d-label {
-    font-size: 9px; font-weight: 700; letter-spacing: .24em;
-    text-transform: uppercase; color: var(--orange); margin-bottom: 7px;
-  }
-  .d-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14.5px; line-height: 1.7; color: #444;
-  }
-  .d-list { list-style: none; }
-  .d-list li {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13.5px; color: #444;
-    padding: 4px 0; border-bottom: 1px solid var(--border);
-    display: flex; align-items: flex-start; gap: 8px;
-  }
-  .d-list li::before { content: '—'; color: var(--orange); font-size: 10px; flex-shrink: 0; margin-top: 2px; }
-  .d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 500px) { .d-grid { grid-template-columns: 1fr; } }
-  .d-project { font-size: 10.5px; font-style: italic; color: var(--ink-light); margin-top: 12px; }
-  .d-close {
-    float: right; width: 24px; height: 24px; border-radius: 50%;
-    border: 1px solid var(--border); background: none;
-    cursor: pointer; font-size: 11px; color: var(--ink-light);
-    display: flex; align-items: center; justify-content: center;
-    transition: all .14s ease; flex-shrink: 0;
-  }
-  .d-close:hover { border-color: var(--orange); color: var(--ink); }
-  .d-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .d-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px; font-weight: 600; color: var(--ink);
-  }
+.chief-panel {
+  background: var(--warm-wash); border: 1px solid var(--border);
+  border-top: none; border-radius: 0 0 var(--r) var(--r);
+  padding: 22px 24px; margin-bottom: 18px;
+}
+
+.dept-label-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.dept-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--orange); white-space: nowrap;
+}
+.dept-label-line { flex: 1; height: 1px; background: var(--border); }
+
+.agents-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+@media (max-width: 720px) { .agents-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 460px) { .agents-grid { grid-template-columns: 1fr; } }
+
+/* Agent card */
+.agent-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 15px 16px;
+  cursor: pointer; transition: all .15s ease;
+  position: relative; overflow: hidden;
+}
+.agent-card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--orange);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .2s ease;
+}
+.agent-card:hover { border-color: var(--orange); box-shadow: var(--shadow-xs); }
+.agent-card:hover::after { transform: scaleX(1); }
+.agent-card.open { border-color: var(--orange); box-shadow: var(--shadow-xs); }
+.agent-card.open::after { transform: scaleX(1); }
+
+.a-top { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 7px; }
+.a-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; border: 1px solid var(--border); }
+.a-name { font-family: 'Playfair Display', serif; font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 2px; }
+.a-role { font-size: 8.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
+.a-desc { font-family: 'Cormorant Garamond', serif; font-size: 12.5px; line-height: 1.55; color: var(--ink-mid); }
+
+/* Agent detail */
+.agent-detail-wrap { width: 100%; margin-top: 10px; }
+.agent-detail {
+  background: var(--off-white); border: 1.5px solid var(--orange);
+  border-radius: var(--r); padding: 20px 22px;
+  animation: panelIn .22s ease;
+}
+
+/* Shared detail styles */
+.d-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.d-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--ink); }
+.d-close { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; font-size: 11px; color: var(--ink-light); display: flex; align-items: center; justify-content: center; transition: all .14s; }
+.d-close:hover { border-color: var(--orange); color: var(--ink); }
+.d-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 520px) { .d-grid { grid-template-columns: 1fr; } }
+.d-label { font-size: 9px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+.d-text { font-family: 'Cormorant Garamond', serif; font-size: 14.5px; line-height: 1.7; color: #444; }
+.d-list { list-style: none; }
+.d-list li { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; color: #444; padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 8px; }
+.d-list li::before { content: '—'; color: var(--orange); font-size: 10px; flex-shrink: 0; margin-top: 2px; opacity: .8; }
+.d-project { font-size: 10.5px; font-style: italic; color: var(--ink-light); margin-top: 12px; }
 
 </style>
 </head>
@@ -344,26 +357,33 @@
   <div class="nav-live"><span class="live-dot"></span>Live</div>
 </nav>
 
+<!-- ── HERO ──────────────────────────────── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Hooked on Hue · AI Creative Team</div>
+    <h1 class="hero-title">
+      The Complete
+      <em>Creative Operation</em>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">"We don't outsource the voice. We architect it — then build systems that carry it forward."</p>
+  </div>
+</div>
+
+<!-- ── ORG MAP ────────────────────────────── -->
 <div class="page">
 <div class="org-wrap">
 
-  <!-- Masthead -->
-  <div class="masthead">
-    <span class="eyebrow">Hooked on Hue · AI Creative Team</span>
-    <h1>The Complete<br><em>Creative Operation</em></h1>
-    <div class="masthead-rule"></div>
-    <p class="masthead-sub">"We don't outsource the voice. We architect it — then build systems that carry it forward."</p>
-  </div>
+  <!-- FOUNDER + COS ROW -->
+  <div class="founder-row">
 
-  <div class="tree">
-
-    <!-- ── FOUNDER ── -->
-    <div class="founder-node">
+    <!-- Founder -->
+    <div style="display:flex;flex-direction:column;align-items:center;">
       <div class="founder-card" id="founderCard" onclick="toggleFounder()">
         <div class="f-photo">
           <img src="https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg" alt="Dorian Davis">
         </div>
-        <div class="f-info">
+        <div>
           <div class="f-name">Dorian Davis</div>
           <div class="f-title">Founder & Creative Director</div>
           <div class="f-pills">
@@ -374,7 +394,7 @@
         <div class="f-chevron">▾</div>
       </div>
       <div class="founder-detail" id="founderDetail">
-        <div class="fd-grid">
+        <div class="d-grid">
           <div>
             <div class="d-label">Role</div>
             <div class="d-text">Founder and Creative Director of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. All 27 AI collaborators report through 4 Chiefs directly to Dorian.</div>
@@ -382,7 +402,7 @@
           <div>
             <div class="d-label">Direct Reports</div>
             <ul class="d-list">
-              <li>Executive Assistant</li>
+              <li>Chief of Staff (adjacent)</li>
               <li>Chief of Content</li>
               <li>Chief of Growth & Revenue</li>
               <li>Chief of Creative Intelligence</li>
@@ -393,48 +413,52 @@
       </div>
     </div>
 
-    <!-- connector -->
-    <div class="v-connector"></div>
-
-    <!-- ── LEVEL 1: EA + CHIEFS ── -->
-    <div class="level1-row">
-
-      <!-- EA -->
-      <div class="ea-node">
-        <div class="ea-v"></div>
-        <div class="ea-card" id="eaCard" onclick="toggleEA()">
-          <div class="ea-label">Executive Support</div>
-          <div class="ea-icon">🗝️</div>
-          <div class="ea-name">The Executive Assistant</div>
-          <div class="ea-desc">Serves Dorian directly. Weekly planning, context switching, decision queue, personal communications.</div>
-          <div class="status status-scheduled"><span class="status-dot"></span>Scheduled</div>
-        </div>
-        <div class="ea-detail" id="eaDetail">
-          <div class="d-label">What It Does</div>
-          <div class="d-text" style="font-size:13px;">The only agent whose job is Dorian, not the brand. Holds the full picture of everything in motion. When everything is on fire, this agent tells you what to drop.</div>
-          <ul class="d-list" style="margin-top:10px;">
-            <li>Weekly review and priority setting</li>
-            <li>Context briefs between projects</li>
-            <li>Decision queue management</li>
-            <li>Personal communications drafting</li>
-            <li>Pipeline tracking across engagements</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- CHIEFS GROUP -->
-      <div class="chiefs-group">
-        <div class="chiefs-v"></div>
-        <div class="chiefs-label">Senior Agents — Department Chiefs</div>
-        <div class="chiefs-row" id="chiefsRow"></div>
-      </div>
-
+    <!-- H-bridge to CoS -->
+    <div class="cos-bridge">
+      <div class="cos-h-line"></div>
     </div>
 
-    <!-- ── AGENT SECTIONS (one per chief, full width) ── -->
-    <div id="agentSections" style="width:100%;max-width:1040px;"></div>
+    <!-- Chief of Staff -->
+    <div class="cos-node">
+      <div class="cos-card" id="cosCard" onclick="toggleCoS()">
+        <div class="cos-tag">Chief of Staff</div>
+        <div class="cos-icon">🗝️</div>
+        <div class="cos-name">Founder's Operating System</div>
+        <div class="cos-desc">Manages Dorian — not the brand. Weekly rhythm, decision queue, context switching, personal communications.</div>
+        <div class="status status-scheduled"><span class="status-dot"></span>Scheduled</div>
+      </div>
+      <div class="cos-detail" id="cosDetail">
+        <div class="d-label">What It Does</div>
+        <div class="d-text" style="font-size:13px;line-height:1.6;">Not a department head — an extension of the founder's capacity to lead. While the four Chiefs run the business, the Chief of Staff runs the CEO.</div>
+        <ul class="d-list" style="margin-top:10px;">
+          <li>Weekly review and priority setting</li>
+          <li>Context briefs between projects</li>
+          <li>Decision queue management</li>
+          <li>Personal communications drafting</li>
+          <li>Pipeline tracking across engagements</li>
+          <li>Goal progress monitoring</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /founder-row -->
+
+  <!-- V connector down to chiefs -->
+  <div style="display:flex;justify-content:center;margin-top:0;">
+    <div class="v-down"></div>
+  </div>
+
+  <!-- CHIEFS -->
+  <div class="chiefs-section">
+    <div class="chiefs-label">Senior Agents — Department Chiefs</div>
+
+    <div class="chiefs-drops" id="chiefsRow"></div>
+
+    <!-- Agent sections rendered here -->
+    <div id="agentSections"></div>
 
   </div>
+
 </div>
 </div>
 
@@ -446,32 +470,31 @@
 <script src="data.js"></script>
 <script>
 
-/* ── State ─────────── */
 let founderOpen = false;
-let eaOpen = false;
+let cosOpen = false;
 let openChief = null;
-let openAgent = null; // "chiefIdx-agentIdx"
+let openAgent = null;
 
-/* ── Founder ─────────── */
+/* ── Founder ── */
 function toggleFounder() {
   founderOpen = !founderOpen;
   document.getElementById('founderCard').classList.toggle('open', founderOpen);
   document.getElementById('founderDetail').classList.toggle('open', founderOpen);
 }
 
-/* ── EA ─────────── */
-function toggleEA() {
-  eaOpen = !eaOpen;
-  document.getElementById('eaCard').classList.toggle('open', eaOpen);
-  document.getElementById('eaDetail').classList.toggle('open', eaOpen);
+/* ── CoS ── */
+function toggleCoS() {
+  cosOpen = !cosOpen;
+  document.getElementById('cosCard').classList.toggle('open', cosOpen);
+  document.getElementById('cosDetail').classList.toggle('open', cosOpen);
 }
 
-/* ── Badge ─────────── */
+/* ── Badge ── */
 function badge(s, l) {
   return `<div class="status status-${s}"><span class="status-dot"></span>${l}</div>`;
 }
 
-/* ── Render Chiefs ─────────── */
+/* ── Chiefs ── */
 function renderChiefs() {
   const row = document.getElementById('chiefsRow');
   const sections = document.getElementById('agentSections');
@@ -479,35 +502,34 @@ function renderChiefs() {
   HOH.chiefs.forEach((chief, ci) => {
     const dept = HOH.departments[ci];
 
-    // Chief node
-    const node = document.createElement('div');
-    node.className = 'chief-node';
-    node.innerHTML = `
-      <div class="chief-v"></div>
+    // Chief drop node
+    const drop = document.createElement('div');
+    drop.className = 'chief-drop';
+    drop.innerHTML = `
+      <div class="chief-drop-line"></div>
       <div class="chief-card" id="chief-${ci}" onclick="toggleChief(${ci})">
         <span class="chief-icon">${chief.icon}</span>
         <div class="chief-name">${chief.name}</div>
         <div class="chief-dept">${chief.dept}</div>
         <div class="chief-desc">${chief.desc}</div>
         <div class="chief-count">${dept.agents.length} agents</div>
+        ${badge(chief.status, chief.statusLabel)}
         <span class="chief-chevron">▾</span>
       </div>
     `;
-    row.appendChild(node);
+    row.appendChild(drop);
 
-    // Agent section (full width, below all chiefs)
+    // Agent section
     const section = document.createElement('div');
     section.className = 'agents-section';
-    section.id = `agents-section-${ci}`;
-
+    section.id = `section-${ci}`;
     section.innerHTML = `
-      <div class="v-connector" style="margin-top:0;"></div>
-      <div class="chief-detail-panel">
+      <div class="chief-panel">
         <div class="d-head">
           <div class="d-title">${chief.name}</div>
           <button class="d-close" onclick="closeChief(${ci})">✕</button>
         </div>
-        <div class="d-grid">
+        <div class="d-grid" style="margin-bottom:20px;">
           <div>
             <div class="d-label">Role</div>
             <div class="d-text">${chief.what}</div>
@@ -517,18 +539,18 @@ function renderChiefs() {
             <ul class="d-list">${chief.capabilities.map(c=>`<li>${c}</li>`).join('')}</ul>
           </div>
         </div>
+        <div class="dept-label-row">
+          <span class="dept-label">${dept.name}</span>
+          <div class="dept-label-line"></div>
+        </div>
+        <div class="agents-grid" id="grid-${ci}"></div>
+        <div class="agent-detail-wrap" id="adw-${ci}"></div>
       </div>
-      <div class="dept-label-row">
-        <span class="dept-label">${dept.name}</span>
-        <div class="dept-label-line"></div>
-      </div>
-      <div class="agents-grid" id="agents-grid-${ci}"></div>
-      <div id="agent-detail-wrap-${ci}" style="width:100%;margin-top:10px;"></div>
     `;
     sections.appendChild(section);
 
-    // Render agents inside grid
-    const grid = section.querySelector(`#agents-grid-${ci}`);
+    // Render agents
+    const grid = section.querySelector(`#grid-${ci}`);
     dept.agents.forEach((a, ai) => {
       const card = document.createElement('div');
       card.className = 'agent-card';
@@ -544,32 +566,28 @@ function renderChiefs() {
         <div class="a-desc">${a.desc}</div>
         ${badge(a.status, a.statusLabel)}
       `;
-      card.addEventListener('click', (e) => { e.stopPropagation(); toggleAgent(ci, ai); });
+      card.addEventListener('click', e => { e.stopPropagation(); toggleAgent(ci, ai); });
       grid.appendChild(card);
     });
   });
 }
 
-/* ── Toggle Chief ─────────── */
+/* ── Toggle Chief ── */
 function toggleChief(ci) {
   const card = document.getElementById(`chief-${ci}`);
-  const section = document.getElementById(`agents-section-${ci}`);
-
+  const section = document.getElementById(`section-${ci}`);
   if (openChief === ci) {
     card.classList.remove('open');
     section.classList.remove('open');
+    clearAgent(ci);
     openChief = null;
-    openAgent = null;
     return;
   }
-
-  // close previous
   if (openChief !== null) {
     document.getElementById(`chief-${openChief}`).classList.remove('open');
-    document.getElementById(`agents-section-${openChief}`).classList.remove('open');
-    closeAgentDetail(openChief);
+    document.getElementById(`section-${openChief}`).classList.remove('open');
+    clearAgent(openChief);
   }
-
   openChief = ci;
   card.classList.add('open');
   section.classList.add('open');
@@ -578,35 +596,31 @@ function toggleChief(ci) {
 
 function closeChief(ci) {
   document.getElementById(`chief-${ci}`).classList.remove('open');
-  document.getElementById(`agents-section-${ci}`).classList.remove('open');
-  closeAgentDetail(ci);
+  document.getElementById(`section-${ci}`).classList.remove('open');
+  clearAgent(ci);
   openChief = null;
-  openAgent = null;
 }
 
-/* ── Toggle Agent ─────────── */
+/* ── Toggle Agent ── */
 function toggleAgent(ci, ai) {
   const key = `${ci}-${ai}`;
-  const allCards = document.getElementById(`agents-grid-${ci}`).querySelectorAll('.agent-card');
-  const detailWrap = document.getElementById(`agent-detail-wrap-${ci}`);
-
+  const adw = document.getElementById(`adw-${ci}`);
+  const allCards = document.getElementById(`grid-${ci}`).querySelectorAll('.agent-card');
   if (openAgent === key) {
     allCards.forEach(c => c.classList.remove('open'));
-    detailWrap.innerHTML = '';
+    adw.innerHTML = '';
     openAgent = null;
     return;
   }
-
   allCards.forEach(c => c.classList.remove('open'));
   document.getElementById(`agent-${ci}-${ai}`).classList.add('open');
   openAgent = key;
-
   const a = HOH.departments[ci].agents[ai];
-  detailWrap.innerHTML = `
-    <div class="agent-detail open">
+  adw.innerHTML = `
+    <div class="agent-detail">
       <div class="d-head">
         <div class="d-title">${a.name}</div>
-        <button class="d-close" onclick="closeAgentDetail(${ci})">✕</button>
+        <button class="d-close" onclick="clearAgent(${ci})">✕</button>
       </div>
       <div class="d-grid">
         <div>
@@ -621,18 +635,17 @@ function toggleAgent(ci, ai) {
       </div>
     </div>
   `;
-  setTimeout(() => detailWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 40);
+  setTimeout(() => adw.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 40);
 }
 
-function closeAgentDetail(ci) {
-  const wrap = document.getElementById(`agent-detail-wrap-${ci}`);
-  if (wrap) wrap.innerHTML = '';
-  const grid = document.getElementById(`agents-grid-${ci}`);
+function clearAgent(ci) {
+  const adw = document.getElementById(`adw-${ci}`);
+  if (adw) adw.innerHTML = '';
+  const grid = document.getElementById(`grid-${ci}`);
   if (grid) grid.querySelectorAll('.agent-card').forEach(c => c.classList.remove('open'));
   openAgent = null;
 }
 
-/* ── Init ─────────── */
 renderChiefs();
 </script>
 </body>
