@@ -9,99 +9,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-  body { background: #120a0d; color: #ede7df; }
+  body { background:#0f0f0e; color:#e8e4dc; }
+  nav { background:rgba(15,15,14,.96); border-bottom-color:rgba(255,255,255,.07); }
+  .nav-brand { color:rgba(232,228,220,.6); }
+  .nav-link { color:rgba(232,228,220,.4); }
+  .nav-link:hover { color:#e8e4dc; background:rgba(255,255,255,.05); }
+  .nav-link.active { color:#e8e4dc; background:rgba(242,112,19,.12); }
+  .dropdown-menu { background:#1a1a19; border-color:rgba(255,255,255,.1); }
+  .dropdown-menu a { color:#e8e4dc; }
+  .dropdown-menu a:hover { background:rgba(242,112,19,.1); color:var(--orange); }
+  .nav-live { color:var(--orange); }
 
-  nav { background: rgba(18,10,13,.94); border-bottom-color: rgba(242,112,19,.1); }
-  .nav-brand { color: #ede7df; }
-  .nav-link { color: rgba(237,231,223,.45); }
-  .nav-link:hover { color: #ede7df; background: rgba(242,112,19,.08); }
-  .nav-link.active { color: #ede7df; background: rgba(242,112,19,.12); }
-  .dropdown-menu { background: #1e1014; border-color: rgba(242,112,19,.18); }
-  .dropdown-menu a { color: #ede7df; }
-  .dropdown-menu a:hover { background: rgba(242,112,19,.08); }
-  .live-dot { background: var(--orange); }
-  .nav-live { color: var(--orange); }
+  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
+  .star { position:absolute; border-radius:50%; background:rgba(232,228,220,.5); animation:tw var(--d) ease-in-out infinite; }
+  @keyframes tw { 0%,100%{opacity:var(--o);}50%{opacity:.05;} }
 
-  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-  .star { position: absolute; border-radius: 50%; background: rgba(237,231,223,.5); animation: twinkle var(--d) ease-in-out infinite; }
-  @keyframes twinkle { 0%,100% { opacity: var(--o); } 50% { opacity: .08; } }
+  .sw { position:relative; z-index:1; min-height:calc(100vh - 52px); display:flex; flex-direction:column; }
 
-  .shift-wrap { position: relative; z-index: 1; min-height: calc(100vh - 50px); display: flex; flex-direction: column; }
+  .sh { display:flex; align-items:center; padding:18px 28px; border-bottom:1px solid rgba(255,255,255,.07); flex-wrap:wrap; gap:20px; }
+  .clock { font-family:'DM Sans',sans-serif; font-size:38px; font-weight:300; color:#e8e4dc; letter-spacing:-.02em; }
+  .cam { font-size:14px; color:rgba(232,228,220,.28); margin-left:4px; vertical-align:super; }
+  .stag { font-family:'Cormorant Garamond',serif; font-size:13px; font-style:italic; color:rgba(232,228,220,.38); max-width:180px; line-height:1.5; }
+  .stats { display:flex; gap:26px; margin-left:auto; }
+  .sv { font-size:20px; font-weight:300; color:var(--orange); font-family:'DM Sans',sans-serif; }
+  .sl { font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:rgba(232,228,220,.28); margin-top:2px; }
+  .dpill { display:flex; align-items:center; gap:9px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:24px; padding:6px 13px; }
+  .dav { width:28px; height:28px; border-radius:50%; overflow:hidden; border:1.5px solid var(--orange); flex-shrink:0; }
+  .dav img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .di { font-size:11px; color:rgba(232,228,220,.5); }
+  .di strong { display:block; color:#e8e4dc; font-size:11.5px; font-weight:500; }
 
-  /* Header */
-  .shift-header { display: flex; align-items: center; padding: 18px 28px; border-bottom: 1px solid rgba(242,112,19,.1); flex-wrap: wrap; gap: 20px; }
-  .clock-display { font-family: 'DM Sans', sans-serif; font-size: 40px; font-weight: 300; color: #ede7df; letter-spacing: -.02em; }
-  .clock-am { font-size: 15px; font-weight: 300; color: rgba(237,231,223,.35); margin-left: 5px; vertical-align: super; }
-  .shift-tagline { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(237,231,223,.4); max-width: 200px; line-height: 1.5; }
-  .shift-stats { display: flex; gap: 28px; margin-left: auto; }
-  .stat-item { text-align: center; }
-  .stat-val { font-size: 22px; font-weight: 300; color: var(--orange); font-family: 'DM Sans', sans-serif; }
-  .stat-label { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(237,231,223,.3); margin-top: 2px; }
-  .dorian-status { display: flex; align-items: center; gap: 10px; background: rgba(242,112,19,.07); border: 1px solid rgba(242,112,19,.14); border-radius: 24px; padding: 7px 14px; }
-  .dorian-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 11px; font-weight: 600; color: #fff; }
-  .dorian-info { font-size: 11px; color: rgba(237,231,223,.6); }
-  .dorian-info strong { display: block; color: #ede7df; font-size: 12px; font-weight: 500; }
+  .tbar { padding:11px 28px; border-bottom:1px solid rgba(255,255,255,.06); }
+  .ttrack { height:2px; background:rgba(255,255,255,.07); border-radius:1px; }
+  .tfill { height:100%; background:linear-gradient(to right,var(--orange),rgba(242,112,19,.2)); border-radius:1px; transition:width .1s linear; }
+  .tlbls { display:flex; justify-content:space-between; margin-top:5px; }
+  .tlbl { font-size:9px; color:rgba(232,228,220,.2); }
 
-  /* Timeline */
-  .timeline-bar { padding: 12px 28px; border-bottom: 1px solid rgba(242,112,19,.07); }
-  .timeline-wrap { position: relative; }
-  .timeline-track { height: 2px; background: rgba(242,112,19,.1); border-radius: 1px; }
-  .timeline-progress { height: 100%; background: linear-gradient(to right, var(--orange), rgba(242,112,19,.2)); border-radius: 1px; transition: width .1s linear; }
-  .tl-labels { display: flex; justify-content: space-between; margin-top: 6px; }
-  .tl-label { font-size: 9px; color: rgba(237,231,223,.22); letter-spacing: .04em; }
+  .ctrl-row { display:flex; align-items:center; gap:7px; padding:10px 28px; border-bottom:1px solid rgba(255,255,255,.06); flex-wrap:wrap; }
+  .cb { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:var(--r); color:rgba(232,228,220,.6); font-size:11px; font-weight:500; padding:5px 12px; cursor:pointer; transition:all .14s; }
+  .cb:hover { color:#e8e4dc; border-color:rgba(255,255,255,.18); }
+  .cb.active { background:var(--orange); border-color:var(--orange); color:#fff; }
+  .chint { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,228,220,.22); margin-left:6px; }
 
-  /* Controls */
-  .controls { display: flex; align-items: center; gap: 8px; padding: 12px 28px; border-bottom: 1px solid rgba(242,112,19,.07); flex-wrap: wrap; }
-  .ctrl-btn { background: rgba(242,112,19,.08); border: 1px solid rgba(242,112,19,.18); border-radius: 4px; color: rgba(237,231,223,.75); font-size: 11px; font-weight: 500; padding: 5px 14px; cursor: pointer; transition: all .18s ease; letter-spacing: .05em; }
-  .ctrl-btn:hover { background: rgba(242,112,19,.18); color: #ede7df; }
-  .ctrl-btn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
-  .ctrl-hint { font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: rgba(237,231,223,.25); margin-left: 6px; }
+  .feed-wrap { flex:1; padding:22px 28px 40px; max-width:700px; width:100%; margin:0 auto; }
 
-  /* Feed */
-  .shift-feed { flex: 1; padding: 24px 28px 40px; max-width: 740px; width: 100%; margin: 0 auto; }
+  .intro-block { text-align:center; padding:48px 20px; }
+  .imoon { font-size:42px; margin-bottom:14px; animation:float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
+  .ititle { font-family:'Playfair Display',serif; font-size:19px; font-weight:400; color:rgba(232,228,220,.6); margin-bottom:7px; }
+  .isub { font-family:'Cormorant Garamond',serif; font-size:14px; font-style:italic; color:rgba(232,228,220,.3); }
 
-  .shift-intro { text-align: center; padding: 56px 20px; }
-  .shift-moon { font-size: 46px; margin-bottom: 18px; animation: float 4s ease-in-out infinite; }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-  .shift-intro-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 400; color: rgba(237,231,223,.65); margin-bottom: 8px; }
-  .shift-intro-sub { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: rgba(237,231,223,.32); }
+  .task { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-left:3px solid var(--orange); border-radius:var(--r); padding:16px 18px; margin-bottom:10px; display:none; animation:slideIn .32s ease both; }
+  .task.vis { display:block; }
+  .ttop { display:flex; align-items:flex-start; gap:11px; margin-bottom:9px; }
+  .ttime { font-size:11px; color:rgba(232,228,220,.27); white-space:nowrap; min-width:46px; padding-top:2px; }
+  .ticon { width:27px; height:27px; border-radius:50%; background:rgba(242,112,19,.1); border:1px solid rgba(242,112,19,.18); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .tagent { font-size:12.5px; font-weight:500; color:#e8e4dc; margin-bottom:2px; }
+  .tdept { font-size:8px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:2px 6px; border-radius:10px; background:rgba(242,112,19,.1); color:var(--orange); border:1px solid rgba(242,112,19,.14); }
+  .taction { font-family:'Cormorant Garamond',serif; font-size:13px; color:rgba(232,228,220,.42); margin-top:3px; }
+  .tout { background:rgba(242,112,19,.05); border-left:2px solid rgba(242,112,19,.3); padding:7px 11px; border-radius:0 var(--r) var(--r) 0; margin:8px 0 8px 46px; }
+  .toutl { font-size:8.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,112,19,.65); margin-bottom:3px; }
+  .toutt { font-family:'Cormorant Garamond',serif; font-size:13px; color:rgba(232,228,220,.55); line-height:1.5; }
+  .tmeta { display:flex; gap:13px; margin-left:46px; }
+  .tmi { font-size:9.5px; color:rgba(232,228,220,.27); }
+  .tmi span { color:var(--orange); font-weight:500; }
 
-  /* Task card */
-  .task-card { background: rgba(237,231,223,.03); border: 1px solid rgba(242,112,19,.1); border-radius: var(--r); padding: 18px 22px; margin-bottom: 12px; display: none; animation: slideIn .4s ease both; }
-  .task-card.visible { display: block; }
-  @keyframes slideIn { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:translateX(0); } }
+  .totbar { background:rgba(255,255,255,.03); border:1px solid rgba(242,112,19,.15); border-radius:var(--r); padding:13px 17px; margin-bottom:14px; display:none; flex-wrap:wrap; gap:18px; align-items:center; }
+  .totbar.vis { display:flex; }
+  .totv { font-size:20px; font-weight:300; color:var(--orange); font-family:'DM Sans',sans-serif; }
+  .totl { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(232,228,220,.28); margin-top:2px; }
+  .totd { width:1px; height:28px; background:rgba(255,255,255,.07); }
+  .totm { font-family:'Cormorant Garamond',serif; font-size:13.5px; font-style:italic; color:rgba(232,228,220,.4); flex:1; }
 
-  .task-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-  .task-time { font-size: 11px; color: rgba(237,231,223,.28); font-weight: 300; white-space: nowrap; padding-top: 2px; min-width: 50px; }
-  .task-icon { width: 30px; height: 30px; border-radius: 50%; background: rgba(242,112,19,.1); border: 1px solid rgba(242,112,19,.18); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-  .task-agent { font-size: 13px; font-weight: 500; color: #ede7df; margin-bottom: 2px; }
-  .task-dept-badge { font-size: 8px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; background: rgba(242,112,19,.1); color: var(--orange); border: 1px solid rgba(242,112,19,.16); }
-  .task-action { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: rgba(237,231,223,.45); margin-top: 3px; }
-
-  .task-output { background: rgba(44,19,27,.3); border-left: 2px solid rgba(242,112,19,.4); padding: 9px 13px; border-radius: 0 var(--r) var(--r) 0; margin: 9px 0 9px 50px; }
-  .task-output-label { font-size: 8.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(242,112,19,.65); margin-bottom: 3px; }
-  .task-output-text { font-family: 'Cormorant Garamond', serif; font-size: 13.5px; color: rgba(237,231,223,.65); line-height: 1.5; }
-
-  .task-meta { display: flex; gap: 14px; margin-left: 50px; margin-top: 3px; }
-  .task-meta-item { font-size: 10px; color: rgba(237,231,223,.28); }
-  .task-meta-item span { color: var(--orange); font-weight: 500; }
-
-  /* Total */
-  .total-bar { background: rgba(242,112,19,.05); border: 1px solid rgba(242,112,19,.12); border-radius: var(--r); padding: 14px 18px; margin-bottom: 18px; display: none; flex-wrap: wrap; gap: 20px; align-items: center; }
-  .total-bar.visible { display: flex; }
-  .total-val { font-size: 22px; font-weight: 300; color: var(--orange); font-family: 'DM Sans', sans-serif; }
-  .total-label { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(237,231,223,.3); margin-top: 2px; }
-  .total-divider { width: 1px; height: 32px; background: rgba(242,112,19,.12); }
-  .total-msg { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(237,231,223,.45); flex: 1; }
-
-  footer { background: rgba(18,10,13,.8); border-top-color: rgba(242,112,19,.1); }
-  footer .footer-brand, footer .footer-tagline { color: rgba(237,231,223,.3); }
+  footer { background:rgba(15,15,14,.9); border-top-color:rgba(255,255,255,.07); }
+  footer .footer-brand, footer .footer-tagline { color:rgba(232,228,220,.28); }
 </style>
 </head>
 <body>
-
 <div class="stars" id="stars"></div>
-
 <nav>
   <a class="nav-brand" href="index.html">Hooked on Hue</a>
   <div class="nav-links">
@@ -118,147 +103,93 @@
   </div>
   <div class="nav-live"><span class="live-dot"></span>Live</div>
 </nav>
-
-<div class="page">
-<div class="shift-wrap">
-
-  <div class="shift-header">
+<div class="page"><div class="sw">
+  <div class="sh">
     <div>
-      <div class="clock-display" id="clock">12<span style="opacity:.35">:</span>00<span class="clock-am">AM</span></div>
-      <div class="shift-tagline">The third shift begins. AI collaborators are clocking in.</div>
+      <div class="clock" id="clock">12<span style="opacity:.28">:</span>00<span class="cam">AM</span></div>
+      <div class="stag">The third shift begins. AI collaborators are clocking in.</div>
     </div>
-    <div class="shift-stats">
-      <div class="stat-item"><div class="stat-val" id="stat-tasks">0</div><div class="stat-label">Tasks</div></div>
-      <div class="stat-item"><div class="stat-val" id="stat-saved">0.0h</div><div class="stat-label">Saved</div></div>
-      <div class="stat-item"><div class="stat-val" id="stat-value">$0</div><div class="stat-label">Value</div></div>
+    <div class="stats">
+      <div><div class="sv" id="st">0</div><div class="sl">Tasks</div></div>
+      <div><div class="sv" id="ss">0.0h</div><div class="sl">Saved</div></div>
+      <div><div class="sv" id="sv2">$0</div><div class="sl">Value</div></div>
     </div>
-    <div class="dorian-status">
-      <div class="dorian-avatar">DD</div>
-      <div class="dorian-info"><strong>Dorian — Sleeping 😴</strong>AI collaborators handling it</div>
-    </div>
-  </div>
-
-  <div class="timeline-bar">
-    <div class="timeline-wrap">
-      <div class="timeline-track"><div class="timeline-progress" id="progress" style="width:0%"></div></div>
-      <div class="tl-labels">
-        <span class="tl-label">12:00 AM</span>
-        <span class="tl-label">2:00 AM</span>
-        <span class="tl-label">4:00 AM</span>
-        <span class="tl-label">6:00 AM</span>
-        <span class="tl-label">8:00 AM</span>
-      </div>
+    <div class="dpill">
+      <div class="dav"><img src="https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg" alt="Dorian"></div>
+      <div class="di"><strong>Dorian — Sleeping 😴</strong>AI collaborators handling it</div>
     </div>
   </div>
-
-  <div class="controls">
-    <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">▶ Play</button>
-    <button class="ctrl-btn active" id="s1" onclick="setSpeed(1,this)">1×</button>
-    <button class="ctrl-btn" id="s3" onclick="setSpeed(3,this)">3×</button>
-    <button class="ctrl-btn" id="s6" onclick="setSpeed(6,this)">6×</button>
-    <button class="ctrl-btn" onclick="resetShift()">↩ Reset</button>
-    <span class="ctrl-hint">Scrub timeline to navigate</span>
+  <div class="tbar">
+    <div class="ttrack"><div class="tfill" id="fill" style="width:0%"></div></div>
+    <div class="tlbls">
+      <span class="tlbl">12:00 AM</span><span class="tlbl">2:00 AM</span><span class="tlbl">4:00 AM</span><span class="tlbl">6:00 AM</span><span class="tlbl">8:00 AM</span>
+    </div>
   </div>
-
-  <div class="shift-feed">
-    <div class="total-bar" id="totalBar">
-      <div><div class="total-val" id="tt">0</div><div class="total-label">Tasks</div></div>
-      <div class="total-divider"></div>
-      <div><div class="total-val" id="ts">0h</div><div class="total-label">Hours Saved</div></div>
-      <div class="total-divider"></div>
-      <div><div class="total-val" id="tv">$0</div><div class="total-label">Value Created</div></div>
-      <div class="total-msg">While Dorian slept, the team kept working.</div>
+  <div class="ctrl-row">
+    <button class="cb" id="pb" onclick="tp()">▶ Play</button>
+    <button class="cb active" id="s1" onclick="sp(1,this)">1×</button>
+    <button class="cb" id="s3" onclick="sp(3,this)">3×</button>
+    <button class="cb" id="s6" onclick="sp(6,this)">6×</button>
+    <button class="cb" onclick="rst()">↩ Reset</button>
+    <span class="chint">Press play to watch the night unfold</span>
+  </div>
+  <div class="feed-wrap">
+    <div class="totbar" id="tb">
+      <div><div class="totv" id="tt">0</div><div class="totl">Tasks</div></div>
+      <div class="totd"></div>
+      <div><div class="totv" id="ts">0h</div><div class="totl">Saved</div></div>
+      <div class="totd"></div>
+      <div><div class="totv" id="tv">$0</div><div class="totl">Value</div></div>
+      <div class="totm">While Dorian slept, the team kept working.</div>
     </div>
     <div id="feed">
-      <div class="shift-intro" id="intro">
-        <div class="shift-moon">🌙</div>
-        <div class="shift-intro-title">The third shift is about to begin.</div>
-        <div class="shift-intro-sub">Your team sleeps. The AI collaborators don't.<br>Press Play to watch the night unfold.</div>
+      <div class="intro-block" id="intro">
+        <div class="imoon">🌙</div>
+        <div class="ititle">The third shift is about to begin.</div>
+        <div class="isub">Your team sleeps. The AI collaborators don't.<br>Press Play to watch the night unfold.</div>
       </div>
     </div>
   </div>
-
-</div>
-</div>
-
+</div></div>
 <footer>
   <span class="footer-brand">Hooked on Hue</span>
   <span class="footer-tagline">Third Shift · The Team Never Stops</span>
 </footer>
-
 <script src="data.js"></script>
 <script>
-// Stars
-(function(){
-  const c = document.getElementById('stars');
-  for(let i=0;i<110;i++){
-    const s=document.createElement('div'); s.className='star';
-    const sz=Math.random()*1.8+.4;
-    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.7+.2};--d:${Math.random()*4+2}s;animation-delay:${Math.random()*4}s;`;
-    c.appendChild(s);
-  }
-})();
-
-const TOTAL=9*60; let cur=0,playing=false,speed=1,timer=null,shown=new Set();
-const ICONS={'Intelligence Analyst':'🔭','SEO Auditor':'🔍','Revenue Tracker':'📊','Reader Experience Manager':'💬','Content Multiplier':'⚡','Executive Assistant':'🗝️'};
-
-function minToStr(m){ const h=Math.floor(m/60)%12||12,mn=String(m%60).padStart(2,'0'); return `${h}:${mn} AM`; }
-function parseMin(s){ const[hm]=s.split(' ');const[h,m]=hm.split(':').map(Number);return (h%12)*60+m; }
-
-function updateClock(){ document.getElementById('clock').innerHTML=minToStr(cur).replace(' AM','')+'<span class="clock-am">AM</span>'; document.getElementById('progress').style.width=(cur/TOTAL*100)+'%'; }
-
-function updateStats(){
+(function(){const c=document.getElementById('stars');for(let i=0;i<100;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*1.6+.4;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.6+.12};--d:${Math.random()*4+2}s;animation-delay:${Math.random()*4}s;`;c.appendChild(s);}})();
+const TOTAL=9*60,ICONS={'Intelligence Analyst':'🔭','SEO Auditor':'🔍','Revenue Tracker':'📊','Reader Experience Manager':'💬','Content Multiplier':'⚡','Executive Assistant':'🗝️','Financial Snapshot Generator':'📸','Revenue Forecaster':'🔮'};
+let cur=0,playing=false,speed=1,timer=null,shown=new Set();
+function mts(m){const h=Math.floor(m/60)%12||12,mn=String(m%60).padStart(2,'0');return`${h}:${mn} AM`;}
+function pm(s){const[hm]=s.split(' ');const[h,m]=hm.split(':').map(Number);return(h%12)*60+m;}
+function uc(){document.getElementById('clock').innerHTML=mts(cur).replace(' AM','')+'<span class="cam">AM</span>';document.getElementById('fill').style.width=(cur/TOTAL*100)+'%';}
+function us(){
   const v=HOH.thirdShift.filter((_,i)=>shown.has(i));
   const tasks=v.length,saved=v.reduce((a,t)=>a+parseFloat(t.saved),0),value=v.reduce((a,t)=>a+parseInt(t.value.replace('$','')),0);
-  document.getElementById('stat-tasks').textContent=tasks;
-  document.getElementById('stat-saved').textContent=saved.toFixed(1)+'h';
-  document.getElementById('stat-value').textContent='$'+value;
+  document.getElementById('st').textContent=tasks;
+  document.getElementById('ss').textContent=saved.toFixed(1)+'h';
+  document.getElementById('sv2').textContent='$'+value;
   if(tasks===HOH.thirdShift.length){
-    const b=document.getElementById('totalBar'); b.classList.add('visible');
-    document.getElementById('tt').textContent=tasks;
-    document.getElementById('ts').textContent=saved.toFixed(1)+'h';
-    document.getElementById('tv').textContent='$'+value;
+    const b=document.getElementById('tb');b.classList.add('vis');
+    document.getElementById('tt').textContent=tasks;document.getElementById('ts').textContent=saved.toFixed(1)+'h';document.getElementById('tv').textContent='$'+value;
   }
 }
-
-function showCard(task,idx){
-  const intro=document.getElementById('intro'); if(intro) intro.style.display='none';
+function sc(task,idx){
+  const intro=document.getElementById('intro');if(intro)intro.style.display='none';
   const feed=document.getElementById('feed');
-  const card=document.createElement('div'); card.className='task-card visible'; card.id=`tc${idx}`;
-  card.innerHTML=`
-    <div class="task-top">
-      <div class="task-time">${task.time}</div>
-      <div class="task-icon">${ICONS[task.agent]||'🤖'}</div>
-      <div><div class="task-agent">${task.agent}</div><span class="task-dept-badge">${task.dept}</span><div class="task-action">${task.task}</div></div>
-    </div>
-    <div class="task-output"><div class="task-output-label">→ Output</div><div class="task-output-text">${task.output}</div></div>
-    <div class="task-meta"><div class="task-meta-item">⏱ <span>${task.saved}</span> saved</div><div class="task-meta-item">💰 <span>${task.value}</span> value</div></div>
-  `;
-  const ex=feed.querySelectorAll('.task-card');
-  let ins=false;
-  for(const e of ex){ if(parseInt(e.id.slice(2))>idx){feed.insertBefore(card,e);ins=true;break;} }
-  if(!ins) feed.appendChild(card);
+  const card=document.createElement('div');card.className='task vis';card.id=`tc${idx}`;
+  card.innerHTML=`<div class="ttop"><div class="ttime">${task.time}</div><div class="ticon">${ICONS[task.agent]||'🤖'}</div><div><div class="tagent">${task.agent}</div><span class="tdept">${task.dept}</span><div class="taction">${task.task}</div></div></div><div class="tout"><div class="toutl">→ Output</div><div class="toutt">${task.output}</div></div><div class="tmeta"><div class="tmi">⏱ <span>${task.saved}</span> saved</div><div class="tmi">💰 <span>${task.value}</span> value</div></div>`;
+  const ex=feed.querySelectorAll('.task');let ins=false;
+  for(const e of ex){if(parseInt(e.id.slice(2))>idx){feed.insertBefore(card,e);ins=true;break;}}
+  if(!ins)feed.appendChild(card);
 }
-
-function tick(){
-  if(cur>=TOTAL){pause();return;}
-  cur=Math.min(cur+speed,TOTAL); updateClock();
-  HOH.thirdShift.forEach((t,i)=>{ if(cur>=parseMin(t.time)&&!shown.has(i)){shown.add(i);showCard(t,i);} });
-  updateStats();
-}
-
-function togglePlay(){ playing?pause():play(); }
-function play(){ playing=true;document.getElementById('playBtn').textContent='⏸ Pause';timer=setInterval(tick,100); }
-function pause(){ playing=false;document.getElementById('playBtn').textContent='▶ Play';clearInterval(timer); }
-function setSpeed(s,btn){ speed=s;['s1','s3','s6'].forEach(id=>document.getElementById(id).classList.remove('active'));btn.classList.add('active'); }
-function resetShift(){
-  pause();cur=0;shown.clear();updateClock();
-  ['stat-tasks','stat-saved','stat-value'].forEach((id,i)=>document.getElementById(id).textContent=['0','0.0h','$0'][i]);
-  document.getElementById('totalBar').classList.remove('visible');
-  document.getElementById('feed').querySelectorAll('.task-card').forEach(c=>c.remove());
-  const intro=document.getElementById('intro'); if(intro) intro.style.display='';
-}
-updateClock();
+function tick(){if(cur>=TOTAL){pause();return;}cur=Math.min(cur+speed,TOTAL);uc();HOH.thirdShift.forEach((t,i)=>{if(cur>=pm(t.time)&&!shown.has(i)){shown.add(i);sc(t,i);}});us();}
+function tp(){playing?pause():play();}
+function play(){playing=true;document.getElementById('pb').textContent='⏸ Pause';timer=setInterval(tick,100);}
+function pause(){playing=false;document.getElementById('pb').textContent='▶ Play';clearInterval(timer);}
+function sp(s,btn){speed=s;['s1','s3','s6'].forEach(id=>document.getElementById(id).classList.remove('active'));btn.classList.add('active');}
+function rst(){pause();cur=0;shown.clear();uc();['st','ss','sv2'].forEach((id,i)=>document.getElementById(id).textContent=['0','0.0h','$0'][i]);document.getElementById('tb').classList.remove('vis');document.getElementById('feed').querySelectorAll('.task').forEach(c=>c.remove());const intro=document.getElementById('intro');if(intro)intro.style.display='';}
+uc();
 </script>
 </body>
 </html>
