@@ -6,7 +6,7 @@ const HOH = {
     name: 'Dorian Davis',
     title: 'Founder & Chief Creative Officer',
     photo: 'https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg',
-    stats: ['26 AI Collaborators', '4 Chiefs']
+    stats: ['26 AI Collaborators', '5 Chiefs']
   },
 
   cos: {
@@ -43,7 +43,7 @@ const HOH = {
         'Sets and enforces brand voice quality standards',
         'Manages the 4-week sprint calendar',
         'Escalates decisions that require Dorian\'s input',
-        'Measures output against the 100-post goal'
+        'Measures output against the content goals'
       ],
       project: 'HoH | Content Strategy'
     },
