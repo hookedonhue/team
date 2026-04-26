@@ -180,7 +180,7 @@
 .cos-card.open .cos-chevron { transform: rotate(180deg); }
 
 .cos-detail {
-  display: none; width: 280px;
+  display: none; width: 100%;
   background: var(--off-white); border: 1.5px solid var(--orange);
   border-top: none; border-radius: 0 0 var(--r) var(--r);
   padding: 16px 18px; animation: panelIn .2s ease;
@@ -313,7 +313,7 @@
 .a-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; border: 1px solid var(--border); }
 .a-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 3px; }
 .a-role { font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
-.a-desc { font-family: 'DM Sans', sans-serif; font-size: 13.5px; line-height: 1.65; color: var(--ink-mid); }
+.a-desc { font-family: 'DM Sans', sans-serif; font-size: 13.5px; line-height: 1.65; color: var(--ink); }
 
 /* Collaborator detail */
 .agent-detail-wrap { width: 100%; margin-top: 12px; }
@@ -346,11 +346,11 @@
   <div class="nav-links">
     <a class="nav-link active" href="index.html">Org Map</a>
     <a class="nav-link" href="ecosystem.html">Ecosystem</a>
-    <a class="nav-link" href="third-shift.html">Third Shift</a>
+    <a class="nav-link" href="roster.html">Roster</a>
     <div class="nav-dropdown">
       <button class="nav-link dropdown-toggle" onclick="toggleNav(event)">Archive ▾</button>
       <div class="dropdown-menu" id="navDropdown">
-        <a href="roster.html">Full Roster</a>
+        <a href="third-shift.html">Third Shift</a>
         <a href="data-flow.html">Data Flow</a>
       </div>
     </div>
@@ -386,7 +386,8 @@
         <div class="f-title">Founder & Chief Creative Officer</div>
         <div class="f-pills">
           <span class="f-pill">26 AI Collaborators</span>
-          <span class="f-pill">5 Chiefs</span>
+          <span class="f-pill">4 Chiefs</span>
+          <span class="f-pill">1 CoS</span>
         </div>
       </div>
       <div class="f-chevron">▾</div>
@@ -395,7 +396,7 @@
       <div class="d-grid">
         <div>
           <div class="d-label">Role</div>
-          <div class="d-text">Founder and Chief Creative Director of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. The team consists of 31 AI Employees, 26 AI Collaborators report through 5 Chiefs directly to Dorian.</div>
+          <div class="d-text">Founder and Chief Creative Officer of Hooked on Hue — a media and philosophy brand built around color, design, and intentional living. The team consists of 31 AI members: 26 AI Collaborators across 4 departments, each led by a Chief, plus 1 Chief of Staff reporting directly to Dorian.</div>
         </div>
         <div>
           <div class="d-label">Direct Reports</div>
@@ -403,7 +404,7 @@
             <li>Chief of Staff</li>
             <li>Chief of Content</li>
             <li>Chief of Growth & Revenue</li>
-            <li>Chief of Creative Intelligence</li>
+            <li>Chief of Brand & Creative</li>
             <li>Chief Financial Officer</li>
           </ul>
         </div>
@@ -437,7 +438,6 @@
         <li>Pipeline tracking across engagements</li>
         <li>Goal progress monitoring</li>
       </ul>
-      <div class="d-project">Claude Project: HoH | Chief of Staff</div>
     </div>
   </div>
 
@@ -458,7 +458,7 @@
 
 <footer>
   <span class="footer-brand">Hooked on Hue</span>
-  <span class="footer-tagline">Live In Full Color</span>
+  <span class="footer-tagline">1 Human · 31 AI · Live In Full Color</span>
 </footer>
 
 <script src="data.js"></script>
@@ -506,7 +506,6 @@ function renderChiefs() {
         <div class="chief-dept">${chief.dept}</div>
         <div class="chief-desc">${chief.desc}</div>
         <div class="chief-count">${dept.agents.length} AI Collaborators</div>
-        <div class="chief-project">Claude Project: ${chief.project}</div>
         ${badge(chief.status, chief.statusLabel)}
         <span class="chief-chevron">▾</span>
       </div>
@@ -618,7 +617,6 @@ function toggleAgent(ci, ai) {
         <div>
           <div class="d-label">What It Does</div>
           <div class="d-text">${a.what}</div>
-          <div class="d-project">Claude Project: ${a.project}</div>
         </div>
         <div>
           <div class="d-label">Key Capabilities</div>

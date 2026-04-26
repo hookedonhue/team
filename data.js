@@ -6,7 +6,7 @@ const HOH = {
     name: 'Dorian Davis',
     title: 'Founder & Chief Creative Officer',
     photo: 'https://raw.githubusercontent.com/hookedonhue/team/main/dorian.jpg',
-    stats: ['26 AI Collaborators', '5 Chiefs']
+    stats: ['26 AI Collaborators', '4 Chiefs', '1 CoS']
   },
 
   cos: {
@@ -67,8 +67,8 @@ const HOH = {
     },
     {
       id: 'chief-creative', icon: '◉',
-      name: 'Chief of Creative Intelligence',
-      dept: 'Creative Intelligence',
+      name: 'Chief of Brand & Creative',
+      dept: 'Brand & Creative',
       color: '#f27013',
       status: 'demand', statusLabel: 'On Demand',
       desc: 'Owns the brand\'s creative vision, learning infrastructure, and Dorian\'s personal positioning. Always thinking 6 months ahead.',
@@ -86,7 +86,7 @@ const HOH = {
     {
       id: 'chief-cfo', icon: '◇',
       name: 'Chief Financial Officer',
-      dept: 'Finance & Operations',
+      dept: 'Finance',
       color: '#f27013',
       status: 'scheduled', statusLabel: 'Scheduled',
       desc: 'Owns HoH\'s complete financial picture. Tracks every dollar in and out, forecasts revenue, monitors budget discipline, and advises on financial strategy.',
@@ -129,7 +129,7 @@ const HOH = {
       ]
     },
     {
-      id: 'creative-intelligence', name: 'Creative Intelligence', chief: 2,
+      id: 'creative-intelligence', name: 'Brand & Creative', chief: 2,
       agents: [
         { icon: '🧭', iconBg: '#f0f7f4', name: 'Creative Director', role: 'Brand Strategy & Vision', status: 'demand', statusLabel: 'On Demand', desc: 'Holds the big picture. Brand direction, positioning, and the long-term architecture of what HoH is becoming.', what: 'The thinking partner for decisions that shape HoH\'s identity. Stress-tests ideas against the brand\'s core philosophy. Has a view and holds it.', capabilities: ['Brand positioning and evolution', 'Creative direction for major decisions', 'Partnership alignment reviews', 'Content pillar strategy', 'Brand integrity stress-testing', 'Quarterly brand direction reviews'], project: 'HoH Creative CEO' },
         { icon: '🎨', iconBg: '#f0f7f0', name: 'Design Studio', role: 'Color & Spatial Design', status: 'demand', statusLabel: 'On Demand', desc: 'Color palette direction, mood boards, spatial concepts, and the visual intelligence behind HoH and Vivid Hue.', what: 'Every color recommendation comes with cultural context, psychological effect, and light behavior reasoning — not just "this looks nice."', capabilities: ['Color palette development with full rationale', 'Mood board concept and direction', 'Vivid Hue client project support', 'Entertaining and tablescape concepts', 'Material and finish direction', 'Seasonal color direction'], project: 'HoH Design Studio' },
@@ -142,7 +142,7 @@ const HOH = {
       ]
     },
     {
-      id: 'finance', name: 'Finance & Operations', chief: 3,
+      id: 'finance', name: 'Finance', chief: 3,
       agents: [
         { icon: '🏦', iconBg: '#f0f8f0', name: 'CFO Advisor', role: 'Financial Strategy', status: 'demand', statusLabel: 'On Demand', desc: 'Strategic financial guidance for HoH — when to invest, when to hold, how to allocate revenue, and how to build a financially resilient media brand.', what: 'The senior financial voice in the room. Not a bookkeeper — a strategic advisor. Helps Dorian make smart financial decisions with confidence, not guesswork.', capabilities: ['Investment and spend timing decisions', 'Financial strategy for growth phases', 'Revenue allocation recommendations', 'Platform and tool cost-benefit analysis', 'Pricing strategy for services and products', 'Financial risk assessment'], project: 'HoH Offer Architect' },
         { icon: '📸', iconBg: '#f8fff0', name: 'Financial Snapshot Generator', role: 'P&L & Financial Reporting', status: 'demand', statusLabel: 'On Demand', desc: 'On-demand P&L view of HoH — revenue vs. expenses, where money is going, and what the financial health looks like right now.', what: 'Any time Dorian wants to know exactly where HoH stands financially, this collaborator produces a clean, clear snapshot. No digging through spreadsheets — one prompt, one complete picture.', capabilities: ['On-demand P&L generation', 'Revenue vs. expense breakdown', 'Platform-by-platform income view', 'Month-over-month comparison', 'Cost of operations summary', 'Net position at any point in time'], project: 'HoH Offer Architect' },

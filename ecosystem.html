@@ -99,11 +99,11 @@
   <div class="nav-links">
     <a class="nav-link" href="index.html">Org Map</a>
     <a class="nav-link active" href="ecosystem.html">Ecosystem</a>
-    <a class="nav-link" href="third-shift.html">Third Shift</a>
+    <a class="nav-link" href="roster.html">Roster</a>
     <div class="nav-dropdown">
       <button class="nav-link dropdown-toggle" onclick="toggleNav(event)">Archive ▾</button>
       <div class="dropdown-menu" id="navDropdown">
-        <a href="roster.html">Full Roster</a>
+        <a href="third-shift.html">Third Shift</a>
         <a href="data-flow.html">Data Flow</a>
       </div>
     </div>
@@ -128,7 +128,6 @@
       <div class="cos-strip-name">Chief of Staff</div>
       <div class="cos-strip-sub">Founder's Operating System · Reports to Dorian</div>
       <div class="cos-strip-desc">Manages Dorian — not the brand. Sits between the founder and the four Chiefs. Weekly planning, decision queue, context switching, and personal communications across all active projects.</div>
-      <div class="cos-strip-project">Claude Project: HoH | Chief of Staff</div>
     </div>
   </div>
 
@@ -157,7 +156,6 @@ HOH.departments.forEach((dept, di) => {
         <div class="ch-name">${chief.name}</div>
         <div class="ch-dept">${dept.name}</div>
         <div class="ch-desc">${chief.desc}</div>
-        <div class="ch-project">Claude Project: ${chief.project}</div>
       </div>
       <div class="ch-meta">
         <div class="ch-count">${dept.agents.length} AI Collaborators</div>
@@ -183,6 +181,8 @@ HOH.departments.forEach((dept, di) => {
       <div class="eco-desc">${a.desc}</div>
       <div class="eco-reports">→ ${chief.name}</div>
       <div class="status status-${a.status}" style="margin-top:9px;">
+        <span class="status-dot"></span>${a.statusLabel}
+      </div>
         <span class="status-dot"></span>${a.statusLabel}
       </div>
     `;
